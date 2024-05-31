@@ -1,21 +1,12 @@
+
 import { Button } from '@nextui-org/button';
 import Image from 'next/image';
+import AddNew from './add-new';
 
 const Footer = () => {
   return (
     <footer className="relative z-40 flex min-h-11 shrink-0 items-center justify-around rounded-2xl border border-primary bg-white p-2 text-primary">
-      <Button
-        variant="light"
-        color="primary"
-        className="h-auto min-w-fit p-1.5"
-      >
-        <Image
-          src="/assets/icons/add-folder.svg"
-          alt="add"
-          width={32}
-          height={32}
-        />
-      </Button>
+      <AddNew/>
       <Button
         variant="light"
         color="primary"
