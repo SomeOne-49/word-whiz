@@ -18,9 +18,9 @@ const SearchSheet = () => {
       <SheetTrigger asChild>
         <Button variant={'ghost'}>
           <Image
-            src="/assets/icons/search.svg"
-            width={27}
-            height={20}
+            src="/assets/icons/search-white.svg"
+            width={37}
+            height={37}
             alt="Add folder"
           />
         </Button>
@@ -41,11 +41,14 @@ const SearchSheet = () => {
           </TabsList>
           <div className="mt-2">
             <Input icon="search" placeholder="Search..." />
+            <div className="mt-2 flex items-center justify-end gap-3 border-t border-primary-dark pt-2">
+              <h6 className="text-end font-semibold text-primary">12 Resultes found</h6>
+            </div>
           </div>
           <TabsContent value="collections">
-            <div className="flex grow flex-col gap-3 p-1.5">
-              <CollectionBox />
-              <CardBox />
+            <div className="flex grow flex-col gap-3 px-1.5">
+              <CollectionBox colored />
+              <CardBox colored />
             </div>
           </TabsContent>
           <TabsContent value="cards">
@@ -58,7 +61,7 @@ const SearchSheet = () => {
                     height={225}
                     alt="no-matches"
                   />
-                  <h5 className="mt-[-30px] rounded-xl bg-white px-3 text-center text-3xl font-bold text-primary">
+                  <h5 className="mt-[-30px] rounded-xl bg-primary-light px-3 text-center text-3xl font-bold text-primary">
                     No Matches Found
                   </h5>
                 </div>

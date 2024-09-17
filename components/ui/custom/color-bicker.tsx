@@ -6,7 +6,7 @@ const ColorPicker = ({title} : {title: string}) => {
   return (
     <Accordion type="single" collapsible>
       <AccordionItem value="item-1">
-        <AccordionTrigger className="flex h-10 items-center gap-2 rounded-xl bg-primary-dark py-3 pl-3 text-sm text-primary">
+        <AccordionTrigger className="flex h-10 items-center gap-2 rounded-xl bg-primary-light py-3 pl-3 text-sm text-primary">
           <div className="flex items-center gap-2">
             <Image
               src="/assets/icons/color.svg"
@@ -17,7 +17,7 @@ const ColorPicker = ({title} : {title: string}) => {
             <p className="text-base">{title}</p>
           </div>
         </AccordionTrigger>
-        <AccordionContent className="mt-1 rounded-xl bg-primary-dark p-3">
+        <AccordionContent className="mt-1 rounded-xl bg-primary-light p-3">
           <ToggleGroup type="single" variant="outline">
             <div className="grid w-full grid-cols-5 gap-3">
               <ToggleGroupItem

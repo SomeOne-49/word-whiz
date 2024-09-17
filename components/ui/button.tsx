@@ -10,18 +10,20 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          'text-primary-foreground bg-primary shadow hover:bg-primary/90',
+          'text-primary-foreground border bg-primary text-primary-light shadow hover:bg-primary-dark hover:text-primary',
         destructive:
           'bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90',
+        light:
+          'border border-primary-dark bg-primary-dark !text-primary shadow-sm hover:bg-primary hover:!text-primary-light',
         outline:
-          'border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground',
+          'border border-input bg-transparent text-primary-light shadow-sm hover:bg-accent hover:text-primary',
         secondary:
-          'bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80',
+          'bg-secondary text-primary shadow-sm hover:bg-primary-light',
         ghost: 'hover:bg-primary-dark/30',
         link: 'text-primary underline-offset-4 hover:underline',
       },
       size: {
-        default: 'h-9 px-4 py-2',
+        default: 'px-4 py-2',
         sm: 'h-8 rounded-md px-3 text-xs',
         lg: 'h-10 rounded-md px-8',
         icon: 'size-9',
@@ -47,7 +49,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       <Comp
         className={cn(
           buttonVariants({ variant, size, className }),
-          'transition duration-500 hover:scale-[.98] active:scale-95 px-2 text-white'
+          'transition duration-500 hover:scale-[.98] min-h-fit active:scale-95 px-2'
         )}
         ref={ref}
         {...props}

@@ -35,14 +35,14 @@ const CollectionBox = ({ colored }: { colored?: boolean }) => {
                 height={18}
                 alt="calendar"
               />
-              <span>12-04-1823</span>
+              <span>12-04-2023</span>
             </p>
           </div>
         </div>
       </Link>
       <Popover>
         <PopoverTrigger asChild>
-          <Button variant={'ghost'} className="px-2">
+          <Button variant={'ghost'} className="h-9 px-2">
             <Image
               src="/assets/icons/dots.svg"
               width={18}

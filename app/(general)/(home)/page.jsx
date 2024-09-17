@@ -7,11 +7,11 @@ const Home = () => {
   return (
     <div className="flex max-h-full flex-col gap-3.5 ">
       <div className="flex items-center justify-between gap-4">
-        <h1 className="text-2xl font-semibold text-white">My Collections</h1>
+        <h1 className="text-2xl font-semibold text-primary">My Collections</h1>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant={'ghost'} className="px-2">
-              <Image src="/assets/icons/sort.svg" width={24} height={24} alt="sort" />
+            <Button variant='ghost' className="px-2">
+              <Image src="/assets/icons/sort-colord.svg" width={24} height={24} alt="sort" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align='end' arrowPadding={30}>
@@ -23,8 +23,8 @@ const Home = () => {
         </DropdownMenu>
       </div>
       <div className="hide_scroll flex flex-col gap-3 overflow-auto px-1">
-        <CollectionBox />
-        <CollectionBox />
+        <CollectionBox colored />
+        <CollectionBox colored />
       </div>
     </div>
   )
