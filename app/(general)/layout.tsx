@@ -34,7 +34,7 @@ export default function RootLayout({
         />
         <div className="relative z-50 mx-auto flex h-screen max-w-sm flex-col justify-between gap-3 bg-white p-3 text-primary">
           <Header />
-          <main className="max-h-[calc(100vh-140px)] flex-1 overflow-hidden">
+          <main className="grow overflow-hidden">
             {children}
           </main>
           <Navbar />
