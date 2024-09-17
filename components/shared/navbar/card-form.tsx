@@ -41,7 +41,7 @@ const CardForm = () => {
         <Input icon="note" placeholder="Notes" />
         <Accordion type="single" collapsible>
           <AccordionItem value="item-1">
-            <AccordionTrigger className="flex h-10 items-center gap-2 rounded-xl bg-primary-dark py-3 pl-3 text-sm text-primary">
+            <AccordionTrigger className="flex h-10 items-center gap-2 rounded-xl bg-primary-light py-3 pl-3 text-sm text-primary">
               <div className="flex items-center gap-2">
                 <Image
                   src="/assets/icons/folder.svg"
@@ -52,7 +52,7 @@ const CardForm = () => {
                 <p className="text-base">Card Collection</p>
               </div>
             </AccordionTrigger>
-            <AccordionContent className="mt-1 rounded-xl bg-primary-dark p-3">
+            <AccordionContent className="mt-1 rounded-xl bg-primary-light p-3">
               <Command className="bg-transparent">
                 <CommandInput
                   className="h-8 py-1 placeholder:text-primary"
@@ -74,7 +74,7 @@ const CardForm = () => {
           </AccordionItem>
         </Accordion>
         <ColorPicker title="Cadr Color" />
-        <div className="flex items-center justify-between rounded-xl bg-primary-dark px-3 py-1.5">
+        <div className="flex items-center justify-between rounded-xl bg-primary-light px-3 py-1.5">
           <div className="flex items-center gap-2">
             <Image
               src="/assets/icons/gallery.svg"

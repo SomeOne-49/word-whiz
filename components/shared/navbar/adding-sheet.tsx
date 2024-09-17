@@ -18,9 +18,9 @@ const AddingSheet = () => {
       <SheetTrigger asChild>
         <Button variant={'ghost'}>
           <Image
-            src="/assets/icons/add-folder.svg"
-            width={27}
-            height={20}
+            src="/assets/icons/add-folder-white.svg"
+            width={37}
+            height={37}
             alt="Add folder"
           />
         </Button>

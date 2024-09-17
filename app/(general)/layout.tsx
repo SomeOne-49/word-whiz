@@ -4,6 +4,7 @@ import { baloo } from '@/config/fonts';
 import { siteConfig } from '@/config/site';
 import '@/styles/globals.css';
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import React from 'react';
 export const metadata: Metadata = {
   title: {
@@ -23,10 +24,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${baloo.className} bg-primary`}>
-        <div className="mx-auto flex h-screen max-w-xl flex-col justify-between gap-3 rounded-3xl bg-primary p-3 text-white">
+      <body className={`${baloo.className} relative`}>
+        <div className="absolute left-0 top-0 z-10 size-full bg-primary/25 backdrop-blur-[7px]" />
+        <Image
+          src="/assets/app-bg.png"
+          fill
+          alt="books"
+          className="object-cover"
+        />
+        <div className="relative z-50 mx-auto flex h-screen max-w-sm flex-col justify-between gap-3 bg-white p-3 text-primary">
           <Header />
-          <main className="max-h-[calc(100vh-140px)] flex-1 overflow-hidden">{children}</main>
+          <main className="max-h-[calc(100vh-140px)] flex-1 overflow-hidden">
+            {children}
+          </main>
           <Navbar />
         </div>
       </body>

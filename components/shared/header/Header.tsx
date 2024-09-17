@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const Header = () => {
   return (
-    <header className="flex items-center justify-between rounded-2xl bg-white p-2">
+    <header className="flex items-center justify-between rounded-2xl bg-primary p-2">
       <Link href='/'>
         <Image
           src='/assets/logo.svg'
