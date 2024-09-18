@@ -1,10 +1,10 @@
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import Link from 'next/link';
-import AddingSheet from './adding-sheet';
-import SearchSheet from './search-sheet';
+import AddingSheet from './add/adding-sheet';
+import SearchSheet from './search/search-sheet';
 
-const Navbar = () => {
+const Navigation = () => {
   return (
     <footer className="xs:justify-around flex items-center justify-between rounded-2xl bg-primary px-6 py-2">
       <AddingSheet />
@@ -23,4 +23,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default Navigation;

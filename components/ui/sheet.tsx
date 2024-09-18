@@ -6,7 +6,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import * as React from 'react';
 
 import { cn } from '@/lib/utils';
-import Image from 'next/image';
+import { Cross2Icon } from '@radix-ui/react-icons';
 
 const Sheet = SheetPrimitive.Root;
 
@@ -69,14 +69,8 @@ const SheetContent = React.forwardRef<
       )}
       {...props}
     >
-      <SheetPrimitive.Close className="absolute right-4 top-[21px] rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary">
-        {/* <Cross2Icon className="size-4 text-primary" /> */}
-        <Image
-          src="/assets/icons/close.svg"
-          width={12}
-          height={12}
-          alt="close"
-        />
+      <SheetPrimitive.Close className="absolute right-4 top-[20px] rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary">
+        <Cross2Icon className="size-7 text-primary" />
         <span className="sr-only">Close</span>
       </SheetPrimitive.Close>
       {children}

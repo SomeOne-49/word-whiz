@@ -1,5 +1,5 @@
 import Header from '@/components/shared/header/Header';
-import Navbar from '@/components/shared/navbar/Navbar';
+import Navigation from '@/components/shared/navigation/navigation';
 import { baloo } from '@/config/fonts';
 import { siteConfig } from '@/config/site';
 import '@/styles/globals.css';
@@ -37,7 +37,7 @@ export default function RootLayout({
           <main className="grow overflow-hidden">
             {children}
           </main>
-          <Navbar />
+          <Navigation />
         </div>
       </body>
     </html>

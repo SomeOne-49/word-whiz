@@ -10,7 +10,7 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import Image from 'next/image';
-import { Button } from '../ui/button';
+import { Button } from '../../ui/button';
 const DeleteCollection = () => {
   return (
     <AlertDialog>

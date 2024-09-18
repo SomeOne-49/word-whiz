@@ -10,9 +10,9 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import Image from 'next/image';
-import { Button } from '../ui/button';
-import ColorPicker from '../ui/custom/color-bicker';
-import { Input } from '../ui/input';
+import { Button } from '../../ui/button';
+import ColorPicker from '../../ui/custom/color-bicker';
+import { Input } from '../../ui/input';
 const EditCollection = () => {
   return (
     <AlertDialog>
