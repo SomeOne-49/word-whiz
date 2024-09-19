@@ -1,5 +1,5 @@
-import CollectionBox from '@/components/Home/boxs/collection-box';
-import HomeSort from '@/components/Home/sort';
+import CollectionBox from '@/components/home/boxs/collection-box';
+import HomeSort from '@/components/home/sort';
 import { COLLECTIONS_LIST } from '@/constants';
 
 const Home = () => {
@@ -17,7 +17,7 @@ const Home = () => {
               colored
               iconBg={collection.color}
               icon={collection.icon}
-              link={`/collections/${collection.id}`}
+              link={`/collections/${collection.id}/1`}
               title={collection.name}
               date={collection.createdAt}
               items={collection.itemCount}
