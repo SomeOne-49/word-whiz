@@ -1,4 +1,4 @@
-import BoxIcon from '@/components/Home/boxs/box-icon';
+import BoxIcon from '@/components/home/boxs/box-icon';
 import FormAccordion from '@/components/shared/accordion';
 import {
   Command,

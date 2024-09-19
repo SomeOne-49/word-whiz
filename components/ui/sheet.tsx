@@ -65,7 +65,7 @@ const SheetContent = React.forwardRef<
       className={cn(
         sheetVariants({ side }),
         className,
-        'mx-auto mb-3 w-[93%] max-w-sm rounded-2xl p-4 flex flex-col gap-3 '
+        'mx-auto mb-3 w-[93%] max-w-[418px] rounded-2xl p-4 flex flex-col gap-3 '
       )}
       {...props}
     >

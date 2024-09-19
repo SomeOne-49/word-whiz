@@ -6,7 +6,7 @@ import SearchSheet from './search/search-sheet';
 
 const Navigation = () => {
   return (
-    <footer className="xs:justify-around flex items-center justify-between rounded-2xl bg-primary px-6 py-2">
+    <footer className="xs:justify-around relative z-50 flex items-center justify-between rounded-2xl bg-primary px-6 py-2">
       <AddingSheet />
       <Link href="/">
         <Button variant={'ghost'}>

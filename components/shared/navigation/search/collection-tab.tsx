@@ -1,4 +1,4 @@
-import CollectionBox from '@/components/Home/boxs/collection-box';
+import CollectionBox from '@/components/home/boxs/collection-box';
 import { Input } from '@/components/ui/input';
 import { TabsContent } from '@/components/ui/tabs';
 
