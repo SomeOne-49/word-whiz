@@ -1,3 +1,4 @@
+// import BoxIcon from '@/components/home/boxs/box-icon';
 import FormAccordion from '@/components/shared/accordion';
 import {
   Command,
@@ -8,7 +9,6 @@ import {
   CommandList,
 } from '@/components/ui/command';
 import { COLLECTIONS_LIST } from '@/constants';
-import BoxIcon from '../../../components/home/boxs/box-icon';
 
 const CollectionPicker = () => {
   return (
@@ -25,11 +25,11 @@ const CollectionPicker = () => {
               return (
                 <CommandItem key={collection.createdAt}>
                   <div className="flex items-center gap-3">
-                    <BoxIcon
+                    {/* <BoxIcon
                       size="size-6 text-sm"
                       icon={collection.icon}
                       bg={collection.color}
-                    />
+                    /> */}
                     <h6 className="font-semibold">{collection.name}</h6>
                   </div>
                 </CommandItem>
