@@ -1,7 +1,6 @@
 import CollectionBox from '@/components/home/boxs/collection-box';
 import HomeSort from '@/components/home/sort';
 import { COLLECTIONS_LIST } from '@/constants';
-
 const Home = () => {
   return (
     <div className="flex max-h-full flex-col gap-3">

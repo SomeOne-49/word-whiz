@@ -14,7 +14,7 @@ const Welcome = () => {
         </h5>
       </div>
       <div className="flex flex-col items-center gap-3 pb-12">
-        <Link href="/signup">
+        <Link href="/sign-up">
           <Button
             variant='secondary'
             className="w-36 rounded-full py-2 text-lg font-normal"
@@ -22,7 +22,7 @@ const Welcome = () => {
             Sign Up
           </Button>
         </Link>
-        <Link href="/signin">
+        <Link href="/sign-in">
           <Button
             className="w-36 rounded-full pt-2 text-lg font-normal"
             variant="outline"

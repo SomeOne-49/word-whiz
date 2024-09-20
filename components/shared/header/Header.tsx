@@ -6,6 +6,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { ProfileOptions } from '@/constants';
+import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -15,6 +16,12 @@ const Header = () => {
       <Link href="/">
         <Image src="/assets/logo.svg" height={26} width={135} alt="Logo" />
       </Link>
+      <SignedOut>
+        <SignInButton />
+      </SignedOut>
+      <SignedIn>
+        <UserButton />
+      </SignedIn>
       <DropdownMenu>
         <DropdownMenuTrigger>
           <Avatar>
