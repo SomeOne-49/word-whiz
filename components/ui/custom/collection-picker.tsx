@@ -1,4 +1,3 @@
-import BoxIcon from '@/components/home/boxs/box-icon';
 import FormAccordion from '@/components/shared/accordion';
 import {
   Command,
@@ -9,6 +8,7 @@ import {
   CommandList,
 } from '@/components/ui/command';
 import { COLLECTIONS_LIST } from '@/constants';
+import BoxIcon from '../../../components/home/boxs/box-icon';
 
 const CollectionPicker = () => {
   return (
