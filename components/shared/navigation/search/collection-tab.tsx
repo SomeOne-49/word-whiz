@@ -19,7 +19,7 @@ const CollectionTab = () => {
           link="/collection/1"
           title="Collection Name"
           date="10-20-2023"
-          items="21"
+          items={21}
         />
       </div>
     </TabsContent>
