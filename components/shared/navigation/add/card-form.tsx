@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
-import CollectionPicker from '@/components/ui/custom/collection-bicker';
-import ColorPicker from '@/components/ui/custom/color-bicker';
+import CollectionPicker from '@/components/ui/custom/collection-picker';
+import ColorPicker from '@/components/ui/custom/color-picker';
 import { Input } from '@/components/ui/input';
 import { SheetFooter } from '@/components/ui/sheet';
 import { TabsContent } from '@/components/ui/tabs';

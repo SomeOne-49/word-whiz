@@ -1,13 +1,15 @@
+import ColorPicker from '@/components/ui/custom/color-picker';
 import Image from 'next/image';
 import React from 'react';
-import { Button } from '../ui/button';
+import { Button } from '../../ui/button';
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from '../ui/sheet';
+} from '../../ui/sheet';
+import FilterBy from './filter-by';
 const Filters = () => {
   return (
     <Sheet key="bottom">
@@ -27,7 +29,17 @@ const Filters = () => {
             Filters
           </SheetTitle>
         </SheetHeader>
-        <div>test</div>
+        <div>
+          <div className="mb-2 flex flex-col gap-2">
+            <h5 className="text-lg font-semibold">Filter by:</h5>
+            <FilterBy />
+          </div>
+          <div>
+            <div className="flex flex-col gap-2">
+              <ColorPicker title="colors" type='multiple' opened />
+            </div>
+          </div>
+        </div>
       </SheetContent>
     </Sheet>
   );
