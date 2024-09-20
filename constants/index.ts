@@ -7,7 +7,7 @@ export const CardsFilter = [
 export const ProfileOptions = [
   { name: 'Profile', link: '/profile' },
   { name: 'Settings', link: '/settings' },
-  { name: 'Logout', link: '/logout' },
+  // { name: 'Logout', link: '/logout' },
 ];
 export const colors = [
   '#FF5733',
