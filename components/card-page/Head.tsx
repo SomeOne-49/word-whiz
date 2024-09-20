@@ -18,7 +18,7 @@ const Head = ({ cardsTotal }: Props) => {
         step={1}
         onValueChange={(val) => setCurrentCard(+val.join())}
       />
-      <Filters />
+      <Filters/>
     </div>
   );
 };

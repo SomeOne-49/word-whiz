@@ -2,10 +2,18 @@ import FormAccordion from '@/components/shared/accordion';
 import { colors } from '@/constants';
 import { ToggleGroup, ToggleGroupItem } from '../toggle-group';
 
-const ColorPicker = ({ title }: { title: string }) => {
+const ColorPicker = ({
+  title,
+  type,
+  opened,
+}: {
+  title: string;
+  type?: 'multiple' | 'single';
+  opened?: boolean;
+}) => {
   return (
-    <FormAccordion icon="color" title={title}>
-      <ToggleGroup type="single" variant="outline">
+    <FormAccordion icon="color" title={title} opened={opened}>
+      <ToggleGroup type={type || 'single'} variant="outline">
         <div className="grid w-full grid-cols-5 gap-3">
           {colors.map((colorVal) => (
             <ToggleGroupItem

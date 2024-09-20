@@ -11,11 +11,16 @@ type Props = {
   icon: string;
   title: string;
   children: React.ReactNode;
+  opened?: boolean;
 };
 
-const FormAccordion = ({ icon, title, children }: Props) => {
+const FormAccordion = ({ icon, title, children, opened }: Props) => {
   return (
-    <Accordion type="single" collapsible>
+    <Accordion
+      type="single"
+      collapsible
+      defaultValue={opened ? 'item-1' : undefined}
+    >
       <AccordionItem value="item-1">
         <AccordionTrigger className="flex h-10 items-center gap-2 rounded-xl bg-primary-light py-3 pl-3 text-sm text-primary">
           <div className="flex items-center gap-2">
