@@ -27,7 +27,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body
-          className={`${baloo.className} relative flex h-screen items-center`}
+          className={`${baloo.className} relative flex max-h-svh items-center`}
         >
           <div className="absolute left-0 top-0 z-10 size-full bg-primary/25 backdrop-blur-[7px]" />
           <Image
@@ -36,7 +36,7 @@ export default function RootLayout({
             alt="books"
             className="object-cover"
           />
-          <div className="relative z-50 m-auto flex h-screen max-w-sm grow flex-col justify-between gap-3 bg-white p-3 text-primary">
+          <div className="relative z-50 m-auto flex h-full max-w-sm grow flex-col justify-between gap-3 bg-white p-3 text-primary">
             <Header />
             <main className="grow overflow-hidden">{children}</main>
             <Navigation />
