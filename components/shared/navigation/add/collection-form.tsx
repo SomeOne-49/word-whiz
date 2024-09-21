@@ -12,7 +12,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { SheetClose, SheetFooter } from '@/components/ui/sheet';
+import { SheetFooter } from '@/components/ui/sheet';
 import { TabsContent } from '@/components/ui/tabs';
 import { createCollection } from '@/lib/actions/collections.action';
 import { collectionSchema } from '@/lib/validation';
@@ -23,7 +23,7 @@ import { z } from 'zod';
 import { useToast } from '@/hooks/use-toast';
 
 const CollectionForm = () => {
-  const router = useRouter()
+  const router = useRouter();
   const pathname = usePathname();
   const { toast } = useToast();
 
@@ -52,7 +52,7 @@ const CollectionForm = () => {
         variant: 'destructive',
       });
     }
-    router.push('/')
+    router.push('/');
   };
 
   return (
@@ -110,13 +110,13 @@ const CollectionForm = () => {
           </div>
           <SheetFooter>
             {/* <SheetClose asChild> */}
-              <Button
-                type="submit"
-                className="grow"
-                disabled={form.formState.isSubmitting}
-              >
-                {form.formState.isSubmitting ? 'Creating' : 'Create Collection'}
-              </Button>
+            <Button
+              type="submit"
+              className="grow"
+              disabled={form.formState.isSubmitting}
+            >
+              {form.formState.isSubmitting ? 'Creating' : 'Create Collection'}
+            </Button>
             {/* </SheetClose> */}
           </SheetFooter>
         </form>
