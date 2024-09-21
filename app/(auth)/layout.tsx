@@ -32,7 +32,19 @@ export default function AuthLayout({
             alt="books"
             className="object-cover"
           />
-          <main className="relative z-50 mx-auto h-full max-w-sm overflow-hidden">
+          <main className="relative z-50 mx-auto flex h-full max-w-sm items-end overflow-hidden">
+            <div className="relative z-50 min-h-80 w-full pt-24">
+              <Image
+                className="absolute left-0 top-0 -z-10"
+                src="/assets/login-shape.svg"
+                priority
+                width={500}
+                height={400}
+                alt="shape"
+              />
+              {children}
+            </div>
+
             <div className="absolute left-0 top-0 z-10 size-full bg-black/50"></div>
             <Image
               src="/assets/auth-bg.svg"
@@ -48,19 +60,6 @@ export default function AuthLayout({
                 alt="books"
                 className="object-cover"
               />
-            </div>
-            <div className="relative h-full">
-              <div className="absolute bottom-0 left-0 z-20 min-h-80 w-full pt-24">
-                <Image
-                  className="absolute left-0 top-0 -z-10"
-                  src="/assets/login-shape.svg"
-                  priority
-                  width={500}
-                  height={400}
-                  alt="shape"
-                />
-                {children}
-              </div>
             </div>
           </main>
         </body>

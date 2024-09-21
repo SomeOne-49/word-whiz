@@ -11,7 +11,7 @@ type Props = {
   icon: string;
   iconBg?: string;
   date: string;
-  items: number;
+  items?: number;
   link: string;
 };
 const CollectionBox = ({

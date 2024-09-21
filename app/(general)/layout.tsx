@@ -1,7 +1,9 @@
 import Header from '@/components/shared/header/Header';
 import Navigation from '@/components/shared/navigation/navigation';
+import { Toaster } from '@/components/ui/toaster';
 import { baloo } from '@/config/fonts';
 import { siteConfig } from '@/config/site';
+
 import '@/styles/globals.css';
 import { ClerkProvider } from '@clerk/nextjs';
 import type { Metadata } from 'next';
@@ -39,6 +41,7 @@ export default function RootLayout({
           <div className="relative z-50 m-auto flex h-full max-w-sm grow flex-col justify-between gap-3 bg-white p-3 text-primary">
             <Header />
             <main className="grow overflow-hidden">{children}</main>
+            <Toaster />
             <Navigation />
           </div>
         </body>

@@ -12,7 +12,7 @@ const CollectionSchema = new Schema<ICollection>({
   name: { type: String, required: true },
   icon: { type: String, required: true },
   createdAt: { type: Date, default: Date.now },
-  itemCount: { type: Number, required: true },
+  itemCount: { type: Number },
   color: { type: String, required: true },
 });
 

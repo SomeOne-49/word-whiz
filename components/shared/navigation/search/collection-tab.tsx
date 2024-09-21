@@ -24,7 +24,7 @@ const CollectionTab = () => {
               link={`/collections/${collection.id}/1`}
               title={collection.name}
               date={collection.createdAt}
-              items={collection.itemCount}
+              // items={collection.itemCount}
             />
           );
         })}
