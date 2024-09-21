@@ -4,6 +4,7 @@ import Box from '../box';
 // import BoxIcon from './box-icon';
 // import CollectionOptions from './collection-options';
 import BoxIcon from '../box-icon';
+import CollectionOptions from './collection-options';
 type Props = {
   colored?: boolean;
   title: string;
@@ -46,13 +47,12 @@ const CollectionBox = ({
                 height={18}
                 alt="calendar"
               />
-              <span>{date}</span>
+              <span>{new Date(date).toLocaleDateString()}</span>
             </p>
           </div>
         </div>
       </Link>
-
-      {/* <CollectionOptions /> */}
+      <CollectionOptions />
     </Box>
   );
 };

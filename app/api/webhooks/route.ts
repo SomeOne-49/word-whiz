@@ -57,6 +57,8 @@ export async function POST(req: Request) {
   const eventType = evt.type;
 
   if (eventType === 'user.created') {
+    console.error('this is created user message');
+    
     const {
       id,
       email_addresses,
