@@ -24,7 +24,7 @@ export default function AuthLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className={`${baloo.className} relative h-screen overflow-hidden`}>
+        <body className={`${baloo.className} relative h-screen`}>
           <div className="absolute left-0 top-0 z-10 size-full bg-black/50 backdrop-blur-sm" />
           <Image
             src="/assets/auth-bg.svg"
