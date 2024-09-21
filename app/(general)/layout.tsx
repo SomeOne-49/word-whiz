@@ -27,7 +27,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body
-          className={`${baloo.className} relative flex max-h-svh items-center`}
+          className={`${baloo.className} relative flex max-h-svh items-center overflow-hidden`}
         >
           <div className="absolute left-0 top-0 z-10 size-full bg-primary/25 backdrop-blur-[7px]" />
           <Image
