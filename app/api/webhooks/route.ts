@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { createUser } from '@/lib/actions/user.action';
+import { createUser, deleteUser, updateUser } from '@/lib/actions/user.action';
 import { WebhookEvent } from '@clerk/nextjs/server';
 import { headers } from 'next/headers';
 import { NextResponse } from 'next/server';
@@ -65,9 +65,6 @@ export async function POST(req: Request) {
       last_name,
       password_enabled,
     } = evt.data;
-    console.log('Email addresses:',  email_addresses[0].email_address,);
-    console.log('user data:',  evt.data);
-
     const user = await createUser({
       clerkId: id,
       name: `${first_name} ${last_name ? `${last_name}` : ''}`,
@@ -76,9 +73,24 @@ export async function POST(req: Request) {
       password: password_enabled,
     });
 
-    console.log(user);
-
     return NextResponse.json({ message: 'OK', user });
+  } else if (eventType === 'user.updated') {
+    const { id, email_addresses, image_url, username, first_name, last_name } =
+      evt.data;
+
+    const user = await updateUser(id, {
+      name: `${first_name}${last_name ? ` ${last_name}` : ''}`,
+      email: email_addresses[0].email_address,
+      picture: image_url,
+      username: username!,
+    });
+    return NextResponse.json({ message: 'OK', user });
+  }
+
+  if (eventType === 'user.deleted') {
+    const { id } = evt.data;
+    const deletedUser = await deleteUser(id!);
+    return NextResponse.json({ message: 'OK', deletedUser });
   }
 
   console.log(`Webhook with and ID of ${id} and type of ${eventType}`);
