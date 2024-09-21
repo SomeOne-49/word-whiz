@@ -21,7 +21,6 @@ const SortBtn = () => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" arrowPadding={30}>
-        <DropdownMenuItem>Filter</DropdownMenuItem>
         {CardsFilter.map((filter) => {
           return (
             <DropdownMenuItem key={filter.name}>{filter.name}</DropdownMenuItem>

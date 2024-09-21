@@ -1,6 +1,5 @@
-// import CollectionBox from '@/components/home/boxs/collection-box';
-// import HomeSort from '@/components/home/sort';
-import SortBtn from '@/components/homeComponents/sort-btn';
+import CollectionBox from '@/components/home-components/boxes/collection/collection-box';
+import SortBtn from '@/components/home-components/sort-btn';
 import { COLLECTIONS_LIST } from '@/constants';
 const Home = () => {
   return (
@@ -12,17 +11,16 @@ const Home = () => {
       <div className="hide_scroll flex flex-col gap-3 overflow-auto px-1">
         {COLLECTIONS_LIST.map((collection) => {
           return (
-            // <CollectionBox
-            //   key={collection.id}
-            //   colored
-            //   iconBg={collection.color}
-            //   icon={collection.icon}
-            //   link={`/collections/${collection.id}/1`}
-            //   title={collection.name}
-            //   date={collection.createdAt}
-            //   items={collection.itemCount}
-            // />
-            <p key={collection.color}>Collection Box</p>
+            <CollectionBox
+              key={collection.id}
+              colored
+              iconBg={collection.color}
+              icon={collection.icon}
+              link={`/collections/${collection.id}/1`}
+              title={collection.name}
+              date={collection.createdAt}
+              items={collection.itemCount}
+            />
           );
         })}
       </div>
