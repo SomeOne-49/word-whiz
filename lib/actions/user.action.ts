@@ -1,6 +1,6 @@
 'use server';
 
-import User from '@/database/user.modal';
+import User from '@/database/client.model';
 import { connectToDatabase } from '../mongodb';
 
 export const createUser = async (user: any) => {
