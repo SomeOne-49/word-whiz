@@ -1,7 +1,12 @@
-import { CardsFilter } from "@/constants";
-import Image from "next/image";
-import { Button } from "../ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../ui/dropdown-menu";
+// import { CardsFilter } from "@/constants";
+import Image from 'next/image';
+import { Button } from '../ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '../ui/dropdown-menu';
 
 const HomeSort = () => {
   return (
@@ -17,11 +22,13 @@ const HomeSort = () => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" arrowPadding={30}>
-        {CardsFilter.map((filter) => {
+        <DropdownMenuItem>Filter</DropdownMenuItem>
+
+        {/* {CardsFilter.map((filter) => {
           return (
             <DropdownMenuItem key={filter.name}>{filter.name}</DropdownMenuItem>
           );
-        })}
+        })} */}
       </DropdownMenuContent>
     </DropdownMenu>
   );
