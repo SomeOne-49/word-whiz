@@ -24,7 +24,7 @@ export default function AuthLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className={`${baloo.className} relative max-h-screen overflow-hidden`}>
+        <body className={`${baloo.className} relative h-screen overflow-hidden`}>
           <div className="absolute left-0 top-0 z-10 size-full bg-black/50 backdrop-blur-sm" />
           <Image
             src="/assets/auth-bg.svg"
@@ -32,7 +32,7 @@ export default function AuthLayout({
             alt="books"
             className="object-cover"
           />
-          <main className="relative z-50 mx-auto h-screen max-w-sm overflow-hidden">
+          <main className="relative z-50 mx-auto h-full max-w-sm overflow-hidden">
             <div className="absolute left-0 top-0 z-10 size-full bg-black/50"></div>
             <Image
               src="/assets/auth-bg.svg"
@@ -49,7 +49,7 @@ export default function AuthLayout({
                 className="object-cover"
               />
             </div>
-            <div className="relative h-screen">
+            <div className="relative h-full">
               <div className="absolute bottom-0 left-0 z-20 min-h-80 w-full pt-24">
                 <Image
                   className="absolute left-0 top-0 -z-10"
