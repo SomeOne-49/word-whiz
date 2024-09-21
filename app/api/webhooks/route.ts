@@ -65,7 +65,8 @@ export async function POST(req: Request) {
       last_name,
       password_enabled,
     } = evt.data;
-    console.log('Email addresses:', email_addresses);
+    console.log('Email addresses:',  email_addresses[0].email_address,);
+    console.log('user data:',  evt.data);
 
     const user = await createUser({
       clerkId: id,
