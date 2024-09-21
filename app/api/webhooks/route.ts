@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { CreateUser } from '@/lib/actions/user.action';
+import { createUser } from '@/lib/actions/user.action';
 import { WebhookEvent } from '@clerk/nextjs/server';
 import { headers } from 'next/headers';
 import { NextResponse } from 'next/server';
@@ -57,8 +57,6 @@ export async function POST(req: Request) {
   const eventType = evt.type;
 
   if (eventType === 'user.created') {
-    console.error('this is created user message');
-    
     const {
       id,
       email_addresses,
@@ -67,7 +65,7 @@ export async function POST(req: Request) {
       last_name,
       password_enabled,
     } = evt.data;
-    const user = await CreateUser({
+    const user = await createUser({
       clerkId: id,
       name: `${first_name} ${last_name ? `${last_name}` : ''}`,
       email: email_addresses,
