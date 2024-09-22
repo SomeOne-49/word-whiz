@@ -1,8 +1,5 @@
-import CollectionBox from '@/components/home-components/boxes/collection/collection-box';
 import { Input } from '@/components/ui/input';
 import { TabsContent } from '@/components/ui/tabs';
-import { COLLECTIONS_LIST } from '@/constants';
-import { getCollections } from '@/lib/actions/collections.action';
 
 const CollectionTab = async () => {
   // const { collection } = await getCollections();
