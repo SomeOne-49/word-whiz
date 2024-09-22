@@ -1,4 +1,4 @@
-import ColorPicker from '@/components/ui/custom/color-picker';
+// import ColorPicker from '@/components/ui/custom/color-picker';
 import Image from 'next/image';
 import React from 'react';
 import { Button } from '../../ui/button';
@@ -36,7 +36,7 @@ const Filters = () => {
           </div>
           <div>
             <div className="flex flex-col gap-2">
-              <ColorPicker title="colors" type='multiple' opened />
+              {/* <ColorPicker title="colors" type='multiple' opened /> */}
             </div>
           </div>
         </div>
