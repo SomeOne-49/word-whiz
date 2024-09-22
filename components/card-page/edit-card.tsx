@@ -9,7 +9,7 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import UploadImg from '../shared/navigation/add/upload-img';
-import CollectionPicker from '../ui/custom/collection-picker';
+// import CollectionPicker from '../ui/custom/collection-picker';
 // import ColorPicker from '../ui/custom/color-picker';
 import { Input } from '../ui/input';
 import OptBtn from './opt-btn';
@@ -26,7 +26,7 @@ const EditCard = () => {
             <Input icon="front" placeholder="Card Front" />
             <Input icon="back" placeholder="Card Back" />
             <Input icon="note" placeholder="Notes" />
-            <CollectionPicker />
+            {/* <CollectionPicker /> */}
             {/* <ColorPicker title="Cadr Color" /> */}
             <UploadImg />
           </div>
