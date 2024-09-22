@@ -7,6 +7,7 @@ export interface ICollection extends Document {
   itemCount: number;
   color: string;
   userId: string;
+  cards: Schema.Types.ObjectId[];
 }
 
 const CollectionSchema = new Schema<ICollection>({
@@ -16,6 +17,7 @@ const CollectionSchema = new Schema<ICollection>({
   itemCount: { type: Number },
   color: { type: String, required: true },
   userId: { type: String, required: true },
+  cards: { type: [Schema.Types.ObjectId], required: true, default: [] },
 });
 
 const Collection =

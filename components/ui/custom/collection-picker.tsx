@@ -8,9 +8,15 @@ import {
   CommandItem,
   CommandList,
 } from '@/components/ui/command';
-import { COLLECTIONS_LIST } from '@/constants';
 
-const CollectionPicker = () => {
+const CollectionPicker = ({
+  setFormVal,
+  collections,
+}: {
+  setFormVal: (val: any) => void;
+  collections: string;
+}) => {
+
   return (
     <FormAccordion icon="folder" title="Cadr Collection">
       <Command className="bg-transparent">
@@ -21,18 +27,27 @@ const CollectionPicker = () => {
         <CommandList>
           <CommandEmpty>No Matches Found.</CommandEmpty>
           <CommandGroup className="hide_scroll max-h-36 overflow-auto">
-            {COLLECTIONS_LIST.map((collection) => {
+            {JSON.parse(collections).map((collection: any) => {
               return (
-                <CommandItem key={collection.createdAt}>
-                  <div className="flex items-center gap-3">
-                    <BoxIcon
-                      size="size-6 text-sm"
-                      icon={collection.icon}
-                      bg={collection.color}
-                    />
-                    <h6 className="font-semibold">{collection.name}</h6>
-                  </div>
-                </CommandItem>
+                <button
+                  className="block w-full"
+                  type="button"
+                  key={collection.createdAt}
+                  onClick={() => {
+                    setFormVal(collection._id);
+                  }}
+                >
+                  <CommandItem>
+                    <div className="flex items-center gap-3">
+                      <BoxIcon
+                        size="size-6 text-sm"
+                        icon={collection.icon}
+                        bg={collection.color}
+                      />
+                      <h6 className="font-semibold">{collection.name}</h6>
+                    </div>
+                  </CommandItem>
+                </button>
               );
             })}
           </CommandGroup>

@@ -25,6 +25,23 @@ export const getCollections = async (userId: string, searchQuery?: string) => {
   }
 };
 
+export const getCollectionById = async (
+  cardsOnly: boolean = false,
+  id: string
+) => {
+  try {
+    await connectToDatabase();
+    const projection = cardsOnly ? { cards: 1 } : {};
+
+    const collection = await Collection.findById(id, projection);
+    return collection;
+  } catch (e) {
+    console.log(e);
+    throw new Error('Failed to fetch collection');
+  }
+};
+
+
 export const createCollection = async (
   data: {
     name: string;
@@ -42,6 +59,7 @@ export const createCollection = async (
       color,
       icon,
       userId,
+      cards: [],
     });
     revalidatePath(path);
   } catch (e) {

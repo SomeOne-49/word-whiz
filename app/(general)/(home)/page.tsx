@@ -6,7 +6,7 @@ const Home = async () => {
   const { userId } = auth();
   if (!userId) return;
   const { collections } = await getCollections(userId);
-
+  
   return (
     <div className="flex max-h-full flex-col gap-3">
       <div className="flex items-center justify-between gap-4">
@@ -22,10 +22,10 @@ const Home = async () => {
                 colored
                 color={collection.color}
                 icon={collection.icon}
-                link={`/collections/${collection.id}/1`}
+                link={`/collections/${collection.id}/${collection.cards[0]}`}
                 name={collection.name}
                 date={collection.createdAt}
-                items={collection.itemCount}
+                items={collection.cards.length}
               />
             </div>
           );

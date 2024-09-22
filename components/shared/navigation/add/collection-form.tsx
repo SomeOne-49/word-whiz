@@ -18,7 +18,7 @@ import {
   updateCollection,
 } from '@/lib/actions/collections.action';
 import { collectionSchema } from '@/lib/validation';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -38,11 +38,9 @@ const CollectionForm = ({
   collection?: string;
 }) => {
   const collectionInfo = JSON.parse(collection || '{}');
-  const router = useRouter();
   const pathname = usePathname();
   const { toast } = useToast();
   const { userId } = useAuth();
-
 
   const form = useForm<z.infer<typeof collectionSchema>>({
     resolver: zodResolver(collectionSchema),
@@ -84,7 +82,6 @@ const CollectionForm = ({
         variant: 'destructive',
       });
     }
-    router.push('/');
   };
 
   return (

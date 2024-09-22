@@ -14,18 +14,19 @@ import { SheetFooter } from '@/components/ui/sheet';
 import { createCard } from '@/lib/actions/card.action';
 import { cardSchema } from '@/lib/validation';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { usePathname } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import UploadImg from './upload-img';
+// import UploadImg from './upload-img';
 
-const CardForm = () => {
+const CardForm = ({ collections }: { collections: string }) => {
+  const path = usePathname();
   const form = useForm<z.infer<typeof cardSchema>>({
     resolver: zodResolver(cardSchema),
     defaultValues: {
       front: '',
       back: '',
       note: '',
-      isMarked: false,
       img: undefined,
       color: '',
       cardCollection: '',
@@ -34,17 +35,19 @@ const CardForm = () => {
 
   const onSubmit = async (values: z.infer<typeof cardSchema>) => {
     try {
-      const { front, back, note, isMarked, img, color, cardCollection } =
-        values;
-      await createCard({
-        front,
-        back,
-        note,
-        isMarked,
-        img,
-        color,
-        cardCollection,
-      });
+      const { front, back, note, img, color, cardCollection } = values;
+
+      await createCard(
+        {
+          front,
+          back,
+          note,
+          img,
+          color,
+          cardCollection,
+        },
+        path
+      );
     } catch (e) {
       console.log(e);
     }
@@ -89,11 +92,27 @@ const CardForm = () => {
               </FormItem>
             )}
           />
-          <CollectionPicker />
           <FormField
             control={form.control}
-            name="note"
-            render={({ field }) => (
+            name="cardCollection"
+            render={() => (
+              <FormItem>
+                <FormControl>
+                  <CollectionPicker
+                    collections={collections}
+                    setFormVal={(val) => {
+                      form.setValue('cardCollection', val);
+                    }}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="color"
+            render={() => (
               <FormItem>
                 <FormControl>
                   <ColorPicker
@@ -105,7 +124,7 @@ const CardForm = () => {
               </FormItem>
             )}
           />
-          <FormField
+          {/* <FormField
             control={form.control}
             name="note"
             render={({ field }) => (
@@ -116,22 +135,19 @@ const CardForm = () => {
                 <FormMessage />
               </FormItem>
             )}
-          />
-
-          {/* <FormField
-              control={form.control}
-              name="back"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            /> */}
+          /> */}
         </div>
         <SheetFooter>
-          <Button className="grow">Create Card</Button>
+          <Button
+            type="submit"
+            className="grow"
+            disabled={form.formState.isSubmitting}
+            onClick={() => {
+              // console.log(form.getValues());
+            }}
+          >
+            {form.formState.isSubmitting ? 'Creating' : 'Create Card'}
+          </Button>
         </SheetFooter>
       </form>
     </Form>
