@@ -1,5 +1,6 @@
 'use client';
 import { useClickOutside } from '@/lib/hooks/useClickOutside';
+import { speakText } from '@/lib/utils';
 import { useState } from 'react';
 import CopyText from '../shared/copy-text';
 import EditCard from './edit-card';
@@ -10,6 +11,7 @@ type Props = {
   isSaved: boolean;
   toggleImg: (value: boolean) => void;
   toggleSave: (value: boolean) => void;
+  front: string;
 };
 const CardOptions = ({
   isFront,
@@ -17,6 +19,7 @@ const CardOptions = ({
   isSaved,
   toggleImg,
   toggleSave,
+  front,
 }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const optionRef = useClickOutside(() => setIsOpen(false));
@@ -27,7 +30,7 @@ const CardOptions = ({
     >
       {isOpen && <OptBtn icon="close" />}
       {!isOpen && <OptBtn icon="dots" onClick={() => setIsOpen(!isOpen)} />}
-      <OptBtn icon="volume" />
+      <OptBtn icon="volume" onClick={()=>speakText(front, 'ar-SA')} />
       {!showImg ? (
         <OptBtn icon="gallery" onClick={() => toggleImg(true)} />
       ) : (

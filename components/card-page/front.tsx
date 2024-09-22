@@ -39,6 +39,7 @@ const Front = ({
         toggleSave={setIsSaved}
         showImg={showImg}
         toggleImg={setShowImg}
+        front={front}
       />
     </div>
   );
