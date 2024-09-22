@@ -1,3 +1,5 @@
+'use server'
+
 import Card from '@/database/card.model';
 import { connectToDatabase } from '../mongodb';
 
