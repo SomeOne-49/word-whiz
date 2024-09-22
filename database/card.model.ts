@@ -22,7 +22,5 @@ const CardSchema = new Schema<ICard>({
 });
 
 const Card = models?.Card || model<ICard>('Card', CardSchema);
-// const Collection =
-//   models.Collection || model<ICollection>('Collection', CollectionSchema);
 
 export default Card;

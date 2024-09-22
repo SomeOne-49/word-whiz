@@ -90,8 +90,34 @@ const CardForm = () => {
             )}
           />
           <CollectionPicker />
-          <ColorPicker title="Cadr Color" />
-          <UploadImg />
+          <FormField
+            control={form.control}
+            name="note"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <ColorPicker
+                    title="Cadr Color"
+                    setFormVal={(val) => form.setValue('color', val)}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="note"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <UploadImg />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
           {/* <FormField
               control={form.control}
               name="back"
