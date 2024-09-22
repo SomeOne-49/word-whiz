@@ -1,5 +1,5 @@
 'use client';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Slider } from '../ui/slider';
 import Filters from './filter';
@@ -13,9 +13,6 @@ const Head = ({ cardsTotal, cards, current, collection }: Props) => {
   const router = useRouter();
   const defaultVal = JSON.parse(cards).indexOf(current) 
   const [currentCard, setCurrentCard] = useState(defaultVal);
-  
-  console.log(defaultVal);
-  
   
   return (
     <div className="flex items-center justify-between gap-4">
@@ -32,7 +29,7 @@ const Head = ({ cardsTotal, cards, current, collection }: Props) => {
           setCurrentCard(newCurrentCard);
           setTimeout(() => {
             const cardData = JSON.parse(cards)[newCurrentCard];
-            const newUrl = `http://localhost:3000/collections/${collection}/${cardData}`;
+            const newUrl = `http://word-whiz-sigma.vercel.app/collections/${collection}/${cardData}`;
             router.push(newUrl);
           },);
         }}
