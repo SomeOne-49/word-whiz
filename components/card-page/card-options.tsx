@@ -30,7 +30,7 @@ const CardOptions = ({
     >
       {isOpen && <OptBtn icon="close" />}
       {!isOpen && <OptBtn icon="dots" onClick={() => setIsOpen(!isOpen)} />}
-      <OptBtn icon="volume" onClick={()=>speakText(front, 'ar-SA')} />
+      <OptBtn icon="volume" onClick={()=>speakText(front)} />
       {!showImg ? (
         <OptBtn icon="gallery" onClick={() => toggleImg(true)} />
       ) : (
