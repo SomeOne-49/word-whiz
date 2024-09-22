@@ -17,8 +17,8 @@ const WordCard = ({ front, back, note, color }: Props) => {
   return (
     <>
       <motion.div
-        initial={{ opacity: 0, y: 20 }}  // التحريك عند الدخول
-        animate={{ opacity: 1, y: 0 }}    // التحريك عند الظهور
+        initial={{ opacity: 0, y: 20 }}  
+        animate={{ opacity: 1, y: 0 }}  
         exit={{ opacity: 0, y: 20 }}  
         transition={{ ease: 'easeInOut', duration: .6 }}
       >

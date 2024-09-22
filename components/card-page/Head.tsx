@@ -11,13 +11,13 @@ type Props = {
 };
 const Head = ({ cardsTotal, cards, current, collection }: Props) => {
   const router = useRouter();
-  const defaultVal = JSON.parse(cards).indexOf(current) 
+  const defaultVal = JSON.parse(cards).indexOf(current);
   const [currentCard, setCurrentCard] = useState(defaultVal);
-  
+
   return (
     <div className="flex items-center justify-between gap-4">
       <h5 className="shrink-0 font-semibold text-primary">
-        {currentCard+1} of {cardsTotal+1}
+        {currentCard + 1} of {cardsTotal + 1}
       </h5>
       <Slider
         min={0}
@@ -29,9 +29,8 @@ const Head = ({ cardsTotal, cards, current, collection }: Props) => {
           setCurrentCard(newCurrentCard);
           setTimeout(() => {
             const cardData = JSON.parse(cards)[newCurrentCard];
-            const newUrl = `http://word-whiz-sigma.vercel.app/collections/${collection}/${cardData}`;
-            router.push(newUrl);
-          },);
+            router.push(`/collections/${collection}/${cardData}`);
+          });
         }}
       />
       <Filters />

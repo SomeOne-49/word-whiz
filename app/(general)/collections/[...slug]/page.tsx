@@ -8,8 +8,6 @@ const CardDetails = async ({ params }: { params: { slug: string } }) => {
   const { front, back, color, note } = await getCard(params.slug[1]);
   const { cards } = await getCollectionById(true, params.slug[0]);
 
-  // console.log(cards);
-
   return (
     <>
       <div className="relative z-30 h-full px-2">
