@@ -1,10 +1,20 @@
 import { Button } from '@/components/ui/button';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
 import Image from 'next/image';
 import DeleteCollection from './options/delete';
 import EditCollection from './options/edit';
 
-const CollectionOptions = () => {
+const CollectionOptions = ({
+  id,
+  collection,
+}: {
+  id: string;
+  collection: string;
+}) => {
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -20,8 +30,8 @@ const CollectionOptions = () => {
       </PopoverTrigger>
       <PopoverContent align="end">
         <div className="flex items-center gap-2">
-          <DeleteCollection />
-          <EditCollection />
+          <DeleteCollection id={id} />
+          <EditCollection collection={collection} />
         </div>
       </PopoverContent>
     </Popover>

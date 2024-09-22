@@ -1,8 +1,11 @@
 import CollectionBox from '@/components/home-components/boxes/collection/collection-box';
 import SortBtn from '@/components/home-components/sort-btn';
 import { getCollections } from '@/lib/actions/collections.action';
+import { auth } from '@clerk/nextjs/server';
 const Home = async () => {
-  const { collections } = await getCollections();
+  const { userId } = auth();
+  if (!userId) return;
+  const { collections } = await getCollections(userId);
 
   return (
     <div className="flex max-h-full flex-col gap-3">
@@ -15,11 +18,12 @@ const Home = async () => {
           return (
             <div key={collection.id}>
               <CollectionBox
+                id={collection.id}
                 colored
-                iconBg={collection.color}
+                color={collection.color}
                 icon={collection.icon}
                 link={`/collections/${collection.id}/1`}
-                title={collection.name}
+                name={collection.name}
                 date={collection.createdAt}
                 items={collection.itemCount}
               />

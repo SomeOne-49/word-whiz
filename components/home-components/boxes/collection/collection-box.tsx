@@ -1,24 +1,24 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import Box from '../box';
-// import BoxIcon from './box-icon';
-// import CollectionOptions from './collection-options';
 import BoxIcon from '../box-icon';
 import CollectionOptions from './collection-options';
 type Props = {
+  id: string;
   colored?: boolean;
-  title: string;
+  name: string;
   icon: string;
-  iconBg?: string;
+  color?: string;
   date: string;
   items?: number;
   link: string;
 };
 const CollectionBox = ({
+  id,
   colored,
-  title,
+  name,
   icon,
-  iconBg,
+  color,
   date,
   items,
   link,
@@ -26,10 +26,9 @@ const CollectionBox = ({
   return (
     <Box colored={colored}>
       <Link href={link} className="flex grow items-center gap-4">
-        <BoxIcon size="size-12 text-3xl" bg={iconBg} icon={icon} />
-
+        <BoxIcon size="size-12 text-3xl" bg={color} icon={icon} />
         <div className="flex grow flex-col gap-0.5">
-          <h5 className="text-lg font-semibold text-primary">{title}</h5>
+          <h5 className="text-lg font-semibold text-primary">{name}</h5>
           <div className="flex items-center justify-between gap-3 text-sm text-gray-500">
             <p className="flex items-center gap-1">
               <Image
@@ -52,7 +51,10 @@ const CollectionBox = ({
           </div>
         </div>
       </Link>
-      <CollectionOptions />
+      <CollectionOptions
+        collection={JSON.stringify({ id, name, color, icon })}
+        id={id}
+      />
     </Box>
   );
 };

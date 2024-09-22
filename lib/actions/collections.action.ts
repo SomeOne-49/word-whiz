@@ -1,13 +1,23 @@
 'use server';
 
+// import Card from '@/database/card.model';
 import Collection from '@/database/collections.model';
+import { FilterQuery } from 'mongoose';
 import { revalidatePath } from 'next/cache';
 import { connectToDatabase } from '../mongodb';
 
-export const getCollections = async () => {
+export const getCollections = async (userId: string, searchQuery?: string) => {
   try {
     await connectToDatabase();
-    const collections = await Collection.find({});
+
+    const query: FilterQuery<typeof Collection> = { userId };
+
+    if (searchQuery && searchQuery.trim()) {
+      query.$or = [{ name: { $regex: new RegExp(searchQuery.trim(), 'i') } }];
+    }
+
+    const collections = await Collection.find(query);
+
     return { collections };
   } catch (error) {
     console.error('Error fetching collections:', error);
@@ -20,19 +30,64 @@ export const createCollection = async (
     name: string;
     color: string;
     icon: string;
+    userId: string;
   },
   path: string
 ) => {
   try {
     await connectToDatabase();
-    const { name, color, icon } = data;
+    const { name, color, icon, userId } = data;
     await Collection.create({
       name,
       color,
       icon,
+      userId,
     });
     revalidatePath(path);
   } catch (e) {
     console.log(e);
+  }
+};
+
+export const deleteCollection = async (id: string, path: string) => {
+  try {
+    await connectToDatabase();
+
+    const collection = await Collection.findOneAndDelete({ _id: id });
+
+    if (!collection) {
+      throw new Error('Collection not found');
+    }
+
+    // await Card.deleteMany({ cardCollection: id });
+
+    revalidatePath(path);
+  } catch (e) {
+    console.log(e);
+    throw new Error('Error deleting the collection');
+  }
+};
+
+export const updateCollection = async (
+  id: string,
+  data: {
+    name: string;
+    color: string;
+    icon: string;
+  },
+  path: string
+) => {
+  try {
+    const { name, color, icon } = data;
+    await connectToDatabase();
+    await Collection.findOneAndUpdate(
+      { _id: id },
+      { name, color, icon }
+      // { new: true }
+    );
+    revalidatePath(path);
+  } catch (e) {
+    console.error(`Failed to update collection with id ${id}:`, e);
+    throw new Error('Could not update collection');
   }
 };

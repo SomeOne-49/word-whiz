@@ -6,6 +6,7 @@ export interface ICollection extends Document {
   createdAt: Date;
   itemCount: number;
   color: string;
+  userId: string;
 }
 
 const CollectionSchema = new Schema<ICollection>({
@@ -14,6 +15,7 @@ const CollectionSchema = new Schema<ICollection>({
   createdAt: { type: Date, default: Date.now },
   itemCount: { type: Number },
   color: { type: String, required: true },
+  userId: { type: String, required: true },
 });
 
 const Collection =

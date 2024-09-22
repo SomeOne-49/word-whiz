@@ -3,7 +3,9 @@ import { z } from 'zod';
 export const collectionSchema = z.object({
   name: z.string().min(3).max(30),
   color: z.string(),
-  icon: z.string().min(1),
+  icon: z
+    .string()
+    .regex(/^\p{Extended_Pictographic}$/u, 'Only one emoji is allowed'),
 });
 
 export const cardSchema = z.object({
@@ -13,5 +15,7 @@ export const cardSchema = z.object({
   isMarked: z.boolean(),
   img: z.string(),
   color: z.string(),
-  cardCollection: z.string().length(24, 'cardCollection must be a valid ObjectId'),
+  cardCollection: z
+    .string()
+    .length(24, 'cardCollection must be a valid ObjectId'),
 });

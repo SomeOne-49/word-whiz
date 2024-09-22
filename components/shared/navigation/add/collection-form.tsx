@@ -13,38 +13,70 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { SheetFooter } from '@/components/ui/sheet';
-import { TabsContent } from '@/components/ui/tabs';
-import { createCollection } from '@/lib/actions/collections.action';
+import {
+  createCollection,
+  updateCollection,
+} from '@/lib/actions/collections.action';
 import { collectionSchema } from '@/lib/validation';
 import { usePathname, useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
+import {
+  AlertDialogCancel,
+  AlertDialogFooter,
+} from '@/components/ui/alert-dialog';
 import { useToast } from '@/hooks/use-toast';
+import { useAuth } from '@clerk/nextjs';
+import { PopoverClose } from '@radix-ui/react-popover';
 
-const CollectionForm = () => {
+const CollectionForm = ({
+  isEdit,
+  collection,
+}: {
+  isEdit: boolean;
+  collection?: string;
+}) => {
+  const collectionInfo = JSON.parse(collection || '{}');
   const router = useRouter();
   const pathname = usePathname();
   const { toast } = useToast();
+  const { userId } = useAuth();
+
 
   const form = useForm<z.infer<typeof collectionSchema>>({
     resolver: zodResolver(collectionSchema),
     defaultValues: {
-      name: '',
-      color: '#fff',
-      icon: '',
+      name: collectionInfo.name || '',
+      color: collectionInfo.color || '#fff',
+      icon: collectionInfo.icon || '',
     },
   });
 
+  if (!userId) return;
+
   const onSubmit = async (values: z.infer<typeof collectionSchema>) => {
     try {
-      const { name, color, icon } = values;
-      await createCollection({ name, color, icon }, pathname);
-      toast({
-        title: 'Collection has been added.',
-        variant: 'success',
-      });
-      form.reset();
+      if (!isEdit) {
+        const { name, color, icon } = values;
+        await createCollection({ name, color, icon, userId }, pathname);
+        toast({
+          title: 'Collection has been added.',
+          variant: 'success',
+        });
+        form.reset();
+      } else {
+        const { name, color, icon } = values;
+        await updateCollection(
+          collectionInfo.id,
+          { name, color, icon },
+          pathname
+        );
+        toast({
+          title: 'Collection has been added.',
+          variant: 'success',
+        });
+      }
     } catch (e) {
       toast({
         title: 'Error occurred',
@@ -56,60 +88,81 @@ const CollectionForm = () => {
   };
 
   return (
-    <TabsContent value="collections">
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
-          <div className="my-2 flex flex-col gap-2">
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input
-                      icon="folder"
-                      placeholder="Collection name"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="color"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <ColorPicker title="Collection Color" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="icon"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input
-                      icon="icon"
-                      placeholder="Collection icon"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                  <FormDescription>
-                    Make sure to select only the emoji.
-                  </FormDescription>
-                </FormItem>
-              )}
-            />
-          </div>
-          <SheetFooter>
-            {/* <SheetClose asChild> */}
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
+        <div className="my-2 flex flex-col gap-2">
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Input
+                    icon="folder"
+                    placeholder="Collection name"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="color"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <ColorPicker
+                    title="Collection Color"
+                    setFormVal={(val) => {
+                      form.setValue('color', val);
+                    }}
+                    opened={isEdit}
+                    defaultValue={collectionInfo.color}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="icon"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Input icon="icon" placeholder="Collection icon" {...field} />
+                </FormControl>
+                <FormMessage />
+                <FormDescription>
+                  Make sure to select only the emoji.
+                </FormDescription>
+              </FormItem>
+            )}
+          />
+        </div>
+        <SheetFooter>
+          {isEdit ? (
+            <AlertDialogFooter>
+              <PopoverClose>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+              </PopoverClose>
+              {/* <AlertDialogAction
+                type="submit"
+                className="bg-green-500 text-white hover:bg-green-600 hover:text-white"
+              >
+                {form.formState.isSubmitting ? 'Saving...' : 'Save'}
+              </AlertDialogAction> */}
+              <Button
+                type="submit"
+                className="grow"
+                disabled={form.formState.isSubmitting}
+              >
+                {form.formState.isSubmitting ? 'Saving...' : 'Save'}
+              </Button>
+            </AlertDialogFooter>
+          ) : (
             <Button
               type="submit"
               className="grow"
@@ -117,11 +170,10 @@ const CollectionForm = () => {
             >
               {form.formState.isSubmitting ? 'Creating' : 'Create Collection'}
             </Button>
-            {/* </SheetClose> */}
-          </SheetFooter>
-        </form>
-      </Form>
-    </TabsContent>
+          )}
+        </SheetFooter>
+      </form>
+    </Form>
   );
 };
 

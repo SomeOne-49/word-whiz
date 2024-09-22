@@ -2,8 +2,10 @@ import CollectionBox from '@/components/home-components/boxes/collection/collect
 import { Input } from '@/components/ui/input';
 import { TabsContent } from '@/components/ui/tabs';
 import { COLLECTIONS_LIST } from '@/constants';
+import { getCollections } from '@/lib/actions/collections.action';
 
-const CollectionTab = () => {
+const CollectionTab = async () => {
+  // const { collection } = await getCollections();
   return (
     <TabsContent value="collections">
       <div className="mb-2">
@@ -14,9 +16,10 @@ const CollectionTab = () => {
         <h6 className="font-semibold text-primary">12 Resultes found</h6>
       </div>
       <div className="flex grow flex-col gap-3 px-1.5">
-        {COLLECTIONS_LIST.map((collection) => {
+        {/* {collection.map((collection) => {
           return (
             <CollectionBox
+              clerkId={collection.id.toString()}
               key={collection.id}
               colored
               iconBg={collection.color}
@@ -27,7 +30,7 @@ const CollectionTab = () => {
               // items={collection.itemCount}
             />
           );
-        })}
+        })} */}
       </div>
     </TabsContent>
   );
