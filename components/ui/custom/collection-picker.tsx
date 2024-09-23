@@ -8,7 +8,6 @@ import {
   CommandItem,
   CommandList,
 } from '@/components/ui/command';
-import Image from 'next/image';
 
 const CollectionPicker = ({
   setFormVal,
@@ -44,7 +43,7 @@ const CollectionPicker = ({
                   }}
                 >
                   <CommandItem className={`${value === collection._id ? '!bg-primary !text-primary-light' : ''}`}>
-                    <div className="flex justify-between gap-2 items-center w-full">
+                    <div className="flex w-full items-center justify-between gap-2">
                       <div className="flex items-center gap-3">
                         <BoxIcon
                           size="size-6 text-sm"
@@ -53,7 +52,7 @@ const CollectionPicker = ({
                         />
                         <h6 className="font-semibold">{collection.name}</h6>
                       </div>
-                      <div className="flex gap-1 items-center font-semibold">
+                      <div className="flex items-center gap-1 font-semibold">
                         <p>
                           {collection.cards.length} Card
                           {collection.cards.length > 1 ? 's' : ''}
