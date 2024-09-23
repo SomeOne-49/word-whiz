@@ -12,26 +12,25 @@ export const createCard = async (
     note: string;
     img?: string;
     color?: string;
-    cardCollection: string;
+    collectionId: string;
   },
   path: string
 ) => {
-  const { front, back, note, img, color, cardCollection } = data;
+  const { front, back, note, img, color, collectionId } = data;
   try {
     await connectToDatabase();
 
-    // إنشاء الكرت
     const newCard = await Card.create({
       front,
       back,
       note,
       img,
       color,
-      cardCollection,
+      collectionId,
     });
 
     await Collection.updateOne(
-      { _id: cardCollection },
+      { _id: collectionId },
       { $push: { cards: newCard._id } }
     );
     revalidatePath(path);
@@ -44,14 +43,12 @@ export const getCards = async (collectionId: string) => {
   try {
     await connectToDatabase();
 
-    console.log(collectionId);
-
-    const cards = await Card.find({ cardCollection: collectionId });
+    const cards = await Card.find({ collectionId });
     if (!cards || cards.length === 0) {
       return [];
     }
 
-    return JSON.stringify(cards);
+    return cards;
   } catch (e) {
     console.error('Error fetching cards:', e);
     throw e;
@@ -96,15 +93,28 @@ export const updateCard = async (
     const { front, back, note = '', collection, color = '#BEEAFF' } = data;
     await connectToDatabase();
 
-    await Card.findOneAndUpdate(
+    // تحديث الكرت
+    const updatedCard = await Card.findOneAndUpdate(
       { _id: id },
       { front, back, note, collectionId: collection, color },
       { new: true }
     );
 
-    revalidatePath(path);
+    if (!updatedCard) {
+      throw new Error('Card not found');
+    }
+
+    const oldCollection = await Collection.updateOne({ cards: id }, { $pull: { cards: id } });
+
+    const newCollection = await Collection.updateOne(
+      { _id: collection },
+      { $addToSet: { cards: id } }
+    );
+
+
+    return {oldCollection, newCollection}
   } catch (e) {
-    console.log(e);
+    console.error('Error updating card:', e);
   }
 };
 

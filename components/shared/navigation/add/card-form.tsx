@@ -19,7 +19,7 @@ import { SheetFooter } from '@/components/ui/sheet';
 import { createCard, updateCard } from '@/lib/actions/card.action';
 import { cardSchema } from '@/lib/validation';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 // import UploadImg from './upload-img';
@@ -36,6 +36,7 @@ type Props = {
   isEdit?: boolean;
 };
 const CardForm = ({ collections, isEdit = false, card }: Props) => {
+  const route = useRouter()
   const path = usePathname();
   const form = useForm<z.infer<typeof cardSchema>>({
     resolver: zodResolver(cardSchema),
@@ -44,19 +45,20 @@ const CardForm = ({ collections, isEdit = false, card }: Props) => {
       back: card?.back || '',
       note: card?.note || '',
       color: card?.color || '',
-      cardCollection: card?.collection || '',
+      collectionId: card?.collection || '',
     },
   });
 
   const onSubmit = async (values: z.infer<typeof cardSchema>) => {
     try {
-      const { front, back, note, img, color, cardCollection } = values;
+      const { front, back, note, img, color, collectionId } = values;
       if (isEdit) {
         await updateCard(
           card?.cardId || '',
-          { front, back, note, color, collection: cardCollection },
+          { front, back, note, color, collection: collectionId },
           path
         );
+        route.push('/')
       } else {
         await createCard(
           {
@@ -65,7 +67,7 @@ const CardForm = ({ collections, isEdit = false, card }: Props) => {
             note: note || '',
             img,
             color,
-            cardCollection,
+            collectionId,
           },
           path
         );
@@ -118,16 +120,16 @@ const CardForm = ({ collections, isEdit = false, card }: Props) => {
           />
           <FormField
             control={form.control}
-            name="cardCollection"
+            name="collectionId"
             render={() => (
               <FormItem>
                 <FormControl>
                   <CollectionPicker
                     collections={collections}
                     setFormVal={(val) => {
-                      form.setValue('cardCollection', val);
+                      form.setValue('collectionId', val);
                     }}
-                    value={form.getValues('cardCollection')}
+                    value={form.getValues('collectionId')}
                     opened
                   />
                 </FormControl>

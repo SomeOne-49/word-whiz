@@ -1,25 +1,19 @@
 'use client';
+import useStore from '@/store/useStore';
 import { useState } from 'react';
 import Back from './back';
 import CardAction from './card-action';
 import Front from './front';
 
 type Props = {
-  cards: {
-    front: string;
-    back: string;
-    _id: string;
-    cardCollection: string;
-    color: string;
-    note: string;
-  }[];
-  current: number;
-  changeCurrent: (val: number) => void;
+  cards: string;
 };
-const WordCard = ({ cards, current,changeCurrent }: Props) => {
+const WordCard = ({ cards }: Props) => {
   const [isFront, setIsFront] = useState(true);
 
-  const card = cards[current];
+  const { currentCard, updateCurrent } = useStore();
+
+  const card = JSON.parse(cards)[currentCard];
 
   return (
     <>
@@ -29,7 +23,7 @@ const WordCard = ({ cards, current,changeCurrent }: Props) => {
           isFront={isFront}
           front={card.front}
           back={card.back}
-          collection={card.cardCollection}
+          collection={card.collectionId}
           color={card.color}
           note={card.note}
         />
@@ -37,9 +31,9 @@ const WordCard = ({ cards, current,changeCurrent }: Props) => {
       </div>
       <div className="fixed left-1/2 top-0 -z-30 h-[75vh] max-h-[732px] w-screen max-w-sm -translate-x-1/2 rounded-b-[75px] bg-gray-200/75">
         <CardAction
-          cardLength={cards.length}
-          current={current}
-          changeCurrent={changeCurrent}
+          cardLength={JSON.parse(cards).length}
+          current={currentCard}
+          changeCurrent={updateCurrent}
           isFront={isFront}
           toggleFront={(val: boolean) => setIsFront(val)}
         />

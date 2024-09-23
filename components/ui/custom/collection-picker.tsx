@@ -38,9 +38,9 @@ const CollectionPicker = ({
                   key={collection.createdAt}
                   onClick={() => {
                     setFormVal(collection._id);
-                    console.log(value === collection.id);
-                    console.log(value);
-                    console.log(collection.id);
+                    // console.log(value === collection.id);
+                    // console.log(value);
+                    // console.log(collection._id);
                   }}
                 >
                   <CommandItem
