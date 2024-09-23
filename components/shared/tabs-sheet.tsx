@@ -38,7 +38,7 @@ const TabsSheet = ({ triggerIcon, title, children, contentClasses }: Props) => {
           defaultValue="collections"
           className="flex flex-col overflow-hidden"
         >
-          <TabsList>
+          <TabsList className='mb-3'>
             <TabsTrigger value="collections">Collections</TabsTrigger>
             <TabsTrigger value="cards">Cards</TabsTrigger>
           </TabsList>

@@ -13,13 +13,15 @@ const CollectionPicker = ({
   setFormVal,
   collections,
   value,
+  opened,
 }: {
   setFormVal: (val: any) => void;
   collections: string;
   value: string;
+  opened?: boolean;
 }) => {
   return (
-    <FormAccordion icon="folder" title="Cadr Collection">
+    <FormAccordion icon="folder" title="Cadr Collection" opened={opened}>
       <Command className="bg-transparent">
         <CommandInput
           className="h-8 py-1 placeholder:text-primary"
@@ -39,10 +41,11 @@ const CollectionPicker = ({
                     console.log(value === collection.id);
                     console.log(value);
                     console.log(collection.id);
-                    
                   }}
                 >
-                  <CommandItem className={`${value === collection._id ? '!bg-primary !text-primary-light' : ''}`}>
+                  <CommandItem
+                    className={`${value === collection._id ? '!bg-primary !text-primary-light' : ''}`}
+                  >
                     <div className="flex w-full items-center justify-between gap-2">
                       <div className="flex items-center gap-3">
                         <BoxIcon

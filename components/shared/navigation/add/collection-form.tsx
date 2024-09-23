@@ -31,10 +31,10 @@ import { useAuth } from '@clerk/nextjs';
 import { PopoverClose } from '@radix-ui/react-popover';
 
 const CollectionForm = ({
-  isEdit,
+  isEdit = false,
   collection,
 }: {
-  isEdit: boolean;
+  isEdit?: boolean;
   collection?: string;
 }) => {
   const collectionInfo = JSON.parse(collection || '{}');

@@ -18,7 +18,7 @@ export const getCollections = async (userId: string, searchQuery?: string) => {
 
     const collections = await Collection.find(query);
 
-    return { collections };
+    return JSON.stringify(collections) ;
   } catch (error) {
     console.error('Error fetching collections:', error);
     throw new Error('Failed to fetch collections');
@@ -100,8 +100,8 @@ export const updateCollection = async (
     await connectToDatabase();
     await Collection.findOneAndUpdate(
       { _id: id },
-      { name, color, icon }
-      // { new: true }
+      { name, color, icon },
+      { new: true }
     );
     revalidatePath(path);
   } catch (e) {

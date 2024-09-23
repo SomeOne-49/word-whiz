@@ -1,7 +1,6 @@
 'use client';
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
@@ -12,22 +11,20 @@ import {
 } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
-import { deleteCollection } from '@/lib/actions/collections.action';
-import { PopoverClose } from '@radix-ui/react-popover';
+import { deleteCard } from '@/lib/actions/card.action';
 import Image from 'next/image';
-import { usePathname, useRouter } from 'next/navigation';
-const DeleteCollection = ({ id }: { id: string }) => {
-  const path = usePathname()
-  const route = useRouter()
+import { usePathname } from 'next/navigation';
+const DeleteCard = ({ id }: { id: string }) => {
+  const path = usePathname();
   const { toast } = useToast();
   const onDelete = async () => {
     try {
-      await deleteCollection(id, path);
+      await deleteCard(id, path);
       toast({
-        title: 'Collection Deleted',
+        title: 'Card Deleted',
         variant: 'success',
       });
-      route.push('/')
+      
     } catch (e) {
       toast({
         title: 'Error occurred',
@@ -39,11 +36,11 @@ const DeleteCollection = ({ id }: { id: string }) => {
   return (
     <AlertDialog>
       <AlertDialogTrigger>
-        <Button variant={'ghost'} className="hover:bg-red-100">
+        <Button variant={'destructive'}>
           <Image
-            src="/assets/icons/trash.svg"
-            width={20}
-            height={20}
+            src="/assets/icons/trash-white.svg"
+            width={19}
+            height={19}
             alt="trash"
           />
         </Button>
@@ -58,18 +55,16 @@ const DeleteCollection = ({ id }: { id: string }) => {
         </AlertDialogHeader>
         <AlertDialogFooter className="justify-center">
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <PopoverClose>
-            <AlertDialogAction
-              className="bg-red-500 text-white hover:bg-red-600 hover:text-white"
-              onClick={onDelete}
-            >
-              Delete
-            </AlertDialogAction>
-          </PopoverClose>
+          <AlertDialogCancel
+            className="bg-red-500 text-white hover:bg-red-600 hover:text-white"
+            onClick={onDelete}
+          >
+            Delete
+          </AlertDialogCancel>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
   );
 };
 
-export default DeleteCollection;
+export default DeleteCard;

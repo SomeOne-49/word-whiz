@@ -8,15 +8,15 @@ import CollectionForm from './collection-form';
 const AddingSheet = async () => {
   const { userId } = auth();
   if (!userId) return;
-  const { collections } = await getCollections(userId);
+  const collections = await getCollections(userId);
 
   return (
     <TabsSheet triggerIcon="add-folder-white" title="Add New">
       <TabsContent value="collections">
-        <CollectionForm isEdit={false} />
+        <CollectionForm />
       </TabsContent>
       <TabsContent value="cards">
-        <CardForm collections={JSON.stringify(collections)} />
+        <CardForm collections={collections} />
       </TabsContent>
     </TabsSheet>
   );

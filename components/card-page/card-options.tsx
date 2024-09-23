@@ -12,15 +12,20 @@ type Props = {
   isFront: boolean;
   showImg: boolean;
   toggleImg: (value: boolean) => void;
-  cardId: string;
-  front: string;
+  card: {
+    front: string;
+    back: string;
+    color: string;
+    cardId: string;
+    note: string;
+    collection: string;
+  };
 };
 const CardOptions = ({
   isFront,
   showImg,
   toggleImg,
-  cardId,
-  front,
+  card: { front, back, color, cardId, note, collection },
 }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const optionRef = useClickOutside(() => setIsOpen(false));
@@ -52,7 +57,7 @@ const CardOptions = ({
       ) : (
         <OptBtn icon="bookmark-save" onClick={toggleMark} />
       )}
-      <EditCard />
+      <EditCard front={front} back={back} color={color} cardId={cardId} note={note} collection={collection} />
       {/* <OptBtn icon="trash" /> */}
       <CopyText ele="h4" />
     </div>

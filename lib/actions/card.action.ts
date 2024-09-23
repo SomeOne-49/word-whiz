@@ -40,16 +40,21 @@ export const createCard = async (
   }
 };
 
-export const getCard = async (cardId: string) => {
+export const getCards = async (collectionId: string) => {
   try {
     await connectToDatabase();
-    const card = Card.findById({ _id: cardId });
-    if (!card) {
-      throw new Error('Card not found');
+
+    console.log(collectionId);
+
+    const cards = await Card.find({ cardCollection: collectionId });
+    if (!cards || cards.length === 0) {
+      return [];
     }
-    return card;
+
+    return JSON.stringify(cards);
   } catch (e) {
-    console.log(e);
+    console.error('Error fetching cards:', e);
+    throw e;
   }
 };
 
@@ -57,7 +62,7 @@ export const toggleMarkedCard = async (cardId: string, path: string) => {
   try {
     await connectToDatabase();
 
-    const card = await getCard(cardId);
+    const card = await Card.findById({ _id: cardId });
 
     if (!card) throw new Error('Card Not Found.');
 
@@ -69,10 +74,55 @@ export const toggleMarkedCard = async (cardId: string, path: string) => {
       { new: true }
     ).lean();
 
-
     revalidatePath(path);
     return JSON.stringify(updatedCard);
   } catch (e) {
     console.log(e);
+  }
+};
+
+export const updateCard = async (
+  id: string,
+  data: {
+    front: string;
+    back: string;
+    note?: string;
+    collection: string;
+    color?: string;
+  },
+  path: string
+) => {
+  try {
+    const { front, back, note = '', collection, color = '#BEEAFF' } = data;
+    await connectToDatabase();
+
+    await Card.findOneAndUpdate(
+      { _id: id },
+      { front, back, note, collectionId: collection, color },
+      { new: true }
+    );
+
+    revalidatePath(path);
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const deleteCard = async (id: string, path: string) => {
+  try {
+    await connectToDatabase();
+
+    const card = await Card.findOneAndDelete({ _id: id });
+
+    if (!card) {
+      throw new Error('Card not found');
+    }
+
+    await Collection.updateOne({ cards: id }, { $pull: { cards: id } });
+
+    revalidatePath(path);
+  } catch (e) {
+    console.log(e);
+    throw new Error('Error deleting the collection');
   }
 };

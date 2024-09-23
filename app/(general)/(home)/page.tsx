@@ -5,8 +5,8 @@ import { auth } from '@clerk/nextjs/server';
 const Home = async () => {
   const { userId } = auth();
   if (!userId) return;
-  const { collections } = await getCollections(userId);
-  
+  const collections = await getCollections(userId);
+
   return (
     <div className="flex max-h-full flex-col gap-3">
       <div className="flex items-center justify-between gap-4">
@@ -14,15 +14,15 @@ const Home = async () => {
         <SortBtn />
       </div>
       <div className="hide_scroll flex flex-col gap-3 overflow-auto px-1">
-        {collections.map((collection) => {
+        {JSON.parse(collections).map((collection: any) => {
           return (
-            <div key={collection.id}>
+            <div key={collection._id}>
               <CollectionBox
-                id={collection.id}
+                id={collection._id}
                 colored
                 color={collection.color}
                 icon={collection.icon}
-                link={`/collections/${collection.id}/${collection.cards[0]}`}
+                link={`/collections/${collection._id}`}
                 name={collection.name}
                 date={collection.createdAt}
                 items={collection.cards.length}

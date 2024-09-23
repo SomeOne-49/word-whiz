@@ -11,7 +11,7 @@ export const collectionSchema = z.object({
 export const cardSchema = z.object({
   front: z.string().min(1).max(40),
   back: z.string().min(1).max(40),
-  note: z.string().min(3).max(120),
+  note: z.string().min(3).max(120).optional(),
   img: z.string().optional(),
   color: z.string().optional(),
   cardCollection: z.string()

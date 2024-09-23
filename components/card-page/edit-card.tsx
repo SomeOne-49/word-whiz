@@ -1,19 +1,42 @@
+'use client';
 import {
   AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
   AlertDialogContent,
-  AlertDialogFooter,
+  AlertDialogDescription,
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
-import UploadImg from '../shared/navigation/add/upload-img';
-// import CollectionPicker from '../ui/custom/collection-picker';
-// import ColorPicker from '../ui/custom/color-picker';
-import { Input } from '../ui/input';
+// import { getCollections } from '@/lib/actions/collections.action';
+import { useAuth } from '@clerk/nextjs';
+// import { useEffect, useState } from 'react';
+// import CardForm from '../shared/navigation/add/card-form';
+import { getCollections } from '@/lib/actions/collections.action';
+import { useEffect, useState } from 'react';
+import CardForm from '../shared/navigation/add/card-form';
 import OptBtn from './opt-btn';
-const EditCard = () => {
+type Props = {
+  front: string;
+  back: string;
+  color: string;
+  cardId: string;
+  note: string;
+  collection: string;
+};
+const EditCard = ({ front, back, color, cardId, note, collection }: Props) => {
+  const { userId } = useAuth();
+  const [collections, setCollections] = useState<any>([]);
+
+  useEffect(() => {
+    const fetchCollections = async () => {
+      if (!userId) return;
+      const data = await getCollections(userId);
+
+      setCollections(data);
+    };
+    fetchCollections();
+  }, [userId]);
+
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
@@ -21,22 +44,14 @@ const EditCard = () => {
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
+          <AlertDialogDescription />
           <AlertDialogTitle>Edit Card Info</AlertDialogTitle>
-          <div className="hide_scroll my-2 flex max-h-[450px] flex-col gap-2 overflow-auto">
-            <Input icon="front" placeholder="Card Front" />
-            <Input icon="back" placeholder="Card Back" />
-            <Input icon="note" placeholder="Notes" />
-            {/* <CollectionPicker /> */}
-            {/* <ColorPicker title="Cadr Color" /> */}
-            <UploadImg />
-          </div>
         </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction className="bg-green-500 text-white hover:bg-green-600 hover:text-white">
-            Save
-          </AlertDialogAction>
-        </AlertDialogFooter>
+        <CardForm
+          card={{ front, back, color, cardId, note, collection }}
+          collections={collections}
+          isEdit
+        />
       </AlertDialogContent>
     </AlertDialog>
   );

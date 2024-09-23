@@ -9,11 +9,17 @@ const Front = ({
   front,
   color,
   cardId,
+  back,
+  collection,
+  note,
 }: {
   isFront: boolean;
   front: string;
   color: string;
   cardId: string;
+  back: string;
+  collection: string;
+  note: string;
 }) => {
   const [showImg, setShowImg] = useState(false);
   return (
@@ -36,10 +42,10 @@ const Front = ({
       )}
       <CardOptions
         isFront={isFront}
-        cardId={cardId}
+        card={{ front, back, color, cardId, note, collection }}
         showImg={showImg}
         toggleImg={setShowImg}
-        front={front}
+
       />
     </div>
   );
