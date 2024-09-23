@@ -5,6 +5,7 @@ import { getCard } from '@/lib/actions/card.action';
 import { getCollectionById } from '@/lib/actions/collections.action';
 
 const CardDetails = async ({ params }: { params: { slug: string } }) => {
+  if(!params.slug[0] || !params.slug[1]) throw new Error('Card ID Not Found.')
   const { front, back, color, note } = await getCard(params.slug[1]);
   const { cards } = await getCollectionById(true, params.slug[0]);
 
@@ -12,13 +13,21 @@ const CardDetails = async ({ params }: { params: { slug: string } }) => {
     <>
       <div className="relative z-30 h-full px-2">
         <Head
-          cardsTotal={cards.length-1}
+          cardsTotal={cards.length - 1}
           current={params.slug[1]}
           collection={params.slug[0]}
           cards={JSON.stringify(cards)}
         />
         {/* <ResultsLine /> */}
-        <WordCard front={front} back={back} color={color} note={note} />
+        <WordCard
+          cards={JSON.stringify(cards)}
+          cardId={params.slug[1]}
+          collection={params.slug[0]}
+          front={front}
+          back={back}
+          color={color}
+          note={note}
+        />
       </div>
     </>
   );

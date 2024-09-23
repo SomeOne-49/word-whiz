@@ -52,10 +52,11 @@ const CardForm = ({ collections }: { collections: string }) => {
       console.log(e);
     }
   };
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <div className="my-2 flex flex-col gap-2">
+        <div className="hide_scroll my-2 flex max-h-[55vh] flex-col gap-2 overflow-auto">
           <FormField
             control={form.control}
             name="front"
@@ -103,6 +104,7 @@ const CardForm = ({ collections }: { collections: string }) => {
                     setFormVal={(val) => {
                       form.setValue('cardCollection', val);
                     }}
+                    value={form.getValues('cardCollection')}
                   />
                 </FormControl>
                 <FormMessage />

@@ -8,13 +8,14 @@ const Front = ({
   isFront,
   front,
   color,
+  cardId,
 }: {
   isFront: boolean;
   front: string;
   color: string;
+  cardId: string;
 }) => {
   const [showImg, setShowImg] = useState(false);
-  const [isSaved, setIsSaved] = useState(false);
   return (
     <div
       className={`center_ele relative z-10 mx-auto size-full overflow-hidden rounded-3xl shadow-md transition-all duration-500 ${!isFront ? 'h-3/5' : ''} `}
@@ -35,8 +36,7 @@ const Front = ({
       )}
       <CardOptions
         isFront={isFront}
-        isSaved={isSaved}
-        toggleSave={setIsSaved}
+        cardId={cardId}
         showImg={showImg}
         toggleImg={setShowImg}
         front={front}

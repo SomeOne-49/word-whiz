@@ -52,3 +52,27 @@ export const getCard = async (cardId: string) => {
     console.log(e);
   }
 };
+
+export const toggleMarkedCard = async (cardId: string, path: string) => {
+  try {
+    await connectToDatabase();
+
+    const card = await getCard(cardId);
+
+    if (!card) throw new Error('Card Not Found.');
+
+    const isMarked = card.isMarked;
+
+    const updatedCard = await Card.findByIdAndUpdate(
+      cardId,
+      { isMarked: !isMarked },
+      { new: true }
+    ).lean();
+
+
+    revalidatePath(path);
+    return JSON.stringify(updatedCard);
+  } catch (e) {
+    console.log(e);
+  }
+};

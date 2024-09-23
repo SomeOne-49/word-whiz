@@ -1,6 +1,9 @@
 'use client';
+import { ICard } from '@/database/card.model';
+import { toggleMarkedCard } from '@/lib/actions/card.action';
 import { useClickOutside } from '@/lib/hooks/useClickOutside';
 import { speakText } from '@/lib/utils';
+import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import CopyText from '../shared/copy-text';
 import EditCard from './edit-card';
@@ -8,21 +11,29 @@ import OptBtn from './opt-btn';
 type Props = {
   isFront: boolean;
   showImg: boolean;
-  isSaved: boolean;
   toggleImg: (value: boolean) => void;
-  toggleSave: (value: boolean) => void;
+  cardId: string;
   front: string;
 };
 const CardOptions = ({
   isFront,
   showImg,
-  isSaved,
   toggleImg,
-  toggleSave,
+  cardId,
   front,
 }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const optionRef = useClickOutside(() => setIsOpen(false));
+  const [updatedCard, setUpdatedCard] = useState<ICard | null>(null);
+  const path = usePathname();
+
+  const toggleMark = async () => {
+    const card = await toggleMarkedCard(cardId, path);
+    if (!card) return false;
+    const parsedCard = JSON.parse(card);
+    setUpdatedCard(parsedCard);
+  };
+
   return (
     <div
       ref={optionRef}
@@ -30,16 +41,16 @@ const CardOptions = ({
     >
       {isOpen && <OptBtn icon="close" />}
       {!isOpen && <OptBtn icon="dots" onClick={() => setIsOpen(!isOpen)} />}
-      <OptBtn icon="volume" onClick={()=>speakText(front)} />
+      <OptBtn icon="volume" onClick={() => speakText(front)} />
       {!showImg ? (
         <OptBtn icon="gallery" onClick={() => toggleImg(true)} />
       ) : (
         <OptBtn icon="word" onClick={() => toggleImg(false)} />
       )}
-      {isSaved ? (
-        <OptBtn icon="bookmark-delete" onClick={() => toggleSave(false)} />
+      {updatedCard?.isMarked ? (
+        <OptBtn icon="bookmark-delete" onClick={toggleMark} />
       ) : (
-        <OptBtn icon="bookmark-save" onClick={() => toggleSave(true)} />
+        <OptBtn icon="bookmark-save" onClick={toggleMark} />
       )}
       <EditCard />
       {/* <OptBtn icon="trash" /> */}
