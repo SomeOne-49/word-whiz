@@ -56,11 +56,11 @@ const CardOptions = ({
         isOpen={isOpen}
       />
       <OptBtn icon="volume" onClick={() => speakText(front)} />
-      {!showImg ? (
+      {/* {!showImg ? (
         <OptBtn icon="gallery" onClick={() => toggleImg(true)} />
       ) : (
         <OptBtn icon="word" onClick={() => toggleImg(false)} />
-      )}
+      )} */}
       {updatedCard?.isMarked ? (
         <OptBtn icon="bookmark-delete" onClick={toggleMark} />
       ) : (

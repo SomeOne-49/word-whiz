@@ -11,9 +11,11 @@ import EditCollection from './options/edit';
 const CollectionOptions = ({
   id,
   collection,
+  name,
 }: {
   id: string;
   collection: string;
+  name: string;
 }) => {
   return (
     <Popover>
@@ -30,7 +32,7 @@ const CollectionOptions = ({
       </PopoverTrigger>
       <PopoverContent align="end">
         <div className="flex items-center gap-2">
-          <DeleteCollection id={id} />
+          <DeleteCollection id={id} name={name} />
           <EditCollection collection={collection} />
         </div>
       </PopoverContent>

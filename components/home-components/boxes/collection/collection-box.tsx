@@ -58,6 +58,7 @@ const CollectionBox = ({
       <CollectionOptions
         collection={JSON.stringify({ id, name, color, icon })}
         id={id}
+        name={name}
       />
     </Box>
   );

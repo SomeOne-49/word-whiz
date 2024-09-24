@@ -6,19 +6,18 @@ interface Props extends HTMLAttributes<HTMLButtonElement> {
   icon: string;
 }
 
-// تعديل المكون ليقبل ref باستخدام forwardRef
 const OptBtn = forwardRef<HTMLButtonElement, Props>(({ icon, ...props }, ref) => {
   return (
     <Button
       variant="ghost"
       className="size-11 !scale-100"
-      ref={ref} // تمرير ref هنا
+      ref={ref}
       {...props}
     >
       <Image
         src={`/assets/icons/${icon}.svg`}
-        width={32}
-        height={32}
+        width={30}
+        height={30}
         alt={icon}
       />
     </Button>
