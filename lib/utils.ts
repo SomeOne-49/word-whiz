@@ -1,4 +1,5 @@
 import { clsx, type ClassValue } from 'clsx';
+import qs from 'query-string';
 import { twMerge } from 'tailwind-merge';
 
 export function cn(...inputs: ClassValue[]) {
@@ -18,4 +19,45 @@ export const speakText = (text: string, lang = 'en-US') => {
   } else {
     alert('متصفحك لا يدعم ميزة تحويل النص إلى كلام.');
   }
+};
+
+type FormUrlParams = {
+  params: string;
+  key: string;
+  value: string;
+};
+
+export const formUrlQuery = ({ params, key, value }: FormUrlParams) => {
+  const currentUrl = qs.parse(params);
+  currentUrl[key] = value;
+
+  return qs.stringifyUrl(
+    {
+      url: window.location.pathname,
+      query: currentUrl,
+    },
+    { skipNull: true }
+  );
+};
+
+export const removeKeyesFromQuery = ({
+  params,
+  keys,
+}: {
+  params: string;
+  keys: string[];
+}) => {
+  const currentUrl = qs.parse(params);
+
+  keys.forEach((key) => {
+    delete currentUrl[key];
+  });
+
+  return qs.stringifyUrl(
+    {
+      url: window.location.pathname,
+      query: currentUrl,
+    },
+    { skipNull: true }
+  );
 };

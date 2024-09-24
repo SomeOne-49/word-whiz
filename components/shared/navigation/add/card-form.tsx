@@ -18,6 +18,7 @@ import { Input } from '@/components/ui/input';
 import { SheetClose, SheetFooter } from '@/components/ui/sheet';
 import { createCard, updateCard } from '@/lib/actions/card.action';
 import { cardSchema } from '@/lib/validation';
+import { useAuth } from '@clerk/nextjs';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { usePathname } from 'next/navigation';
 import { useForm } from 'react-hook-form';
@@ -36,6 +37,7 @@ type Props = {
   isEdit?: boolean;
 };
 const CardForm = ({ collections, isEdit = false, card }: Props) => {
+  const { userId } = useAuth();
   const path = usePathname();
   const form = useForm<z.infer<typeof cardSchema>>({
     resolver: zodResolver(cardSchema),
@@ -48,6 +50,7 @@ const CardForm = ({ collections, isEdit = false, card }: Props) => {
     },
   });
 
+  if (!userId) return;
   const onSubmit = async (values: z.infer<typeof cardSchema>) => {
     try {
       const { front, back, note, img, color, collectionId } = values;
@@ -67,6 +70,7 @@ const CardForm = ({ collections, isEdit = false, card }: Props) => {
             img,
             color,
             collectionId,
+            userId,
           },
           path
         );
@@ -176,10 +180,7 @@ const CardForm = ({ collections, isEdit = false, card }: Props) => {
             </AlertDialogFooter>
           ) : (
             <>
-              <SheetClose
-                id="close_sheet"
-                className='hidden'
-              />
+              <SheetClose id="close_sheet" className="hidden" />
               <Button
                 type="submit"
                 className="!m-0 grow"

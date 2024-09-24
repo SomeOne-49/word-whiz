@@ -8,6 +8,7 @@ export interface ICard extends Document {
   color: string;
   createdAt: Date;
   collectionId: Schema.Types.ObjectId;
+  userId: string
 }
 
 const CardSchema = new Schema<ICard>({
@@ -19,6 +20,7 @@ const CardSchema = new Schema<ICard>({
   color: { type: String, default: '#BEEAFF' },
   createdAt: { type: Date, default: Date.now() },
   collectionId: { type: Schema.Types.ObjectId },
+  userId: {type: String, required: true}
 });
 
 const Card = models?.Card || model<ICard>('Card', CardSchema);

@@ -1,25 +1,71 @@
-// import CardBox from '@/components/Home/boxs/card-box';
-import { Input } from '@/components/ui/input';
+'use client';
+import CardBox from '@/components/home-components/boxes/card-box';
 import { TabsContent } from '@/components/ui/tabs';
+import { getCards } from '@/lib/actions/card.action';
+import { useAuth } from '@clerk/nextjs';
+import { useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import NoResults from './no-results';
+import SearchInp from './search-inp';
+import Searching from './searching';
 const CardTab = () => {
+  const { userId } = useAuth();
+  const searchParams = useSearchParams();
+  const search = searchParams.get('s');
+  const [cards, setCards] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  
+  useEffect(() => {
+    if (!userId || !search) {
+      setCards([]);
+      return;
+    }
+
+    const fetchCards = async () => {
+      setIsLoading(true);
+      try {
+        const cards = await getCards(userId, search);
+        setCards(JSON.parse(cards || '[]'));
+      } catch (e) {
+        console.error('Error fetching collections:', e);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchCards();
+  }, [search, searchParams, userId]);
+
+  console.log(cards);
+
   return (
     <TabsContent value="cards">
       <div className="mb-2">
-        <Input icon="search" placeholder="Search..." />
+        <SearchInp placeholder="Search Cards..." />
       </div>
       <div className="mb-2 flex items-center justify-between gap-3 border-t border-primary-dark pt-2">
         <h6 className="text-xl font-semibold text-primary">Cards:</h6>
-        <h6 className="font-semibold text-primary">0 Resultes found</h6>
+        <h6 className="font-semibold text-primary">{cards.length} Resultes found</h6>
       </div>
       <div className="flex flex-col gap-3 p-1.5">
-        <NoResults />
-        {/* <CardBox
-          colored
-          title="CardTitle"
-          link="/collections/id/id"
-          collection={{ name: 'Collection Name', icon: '🏴‍☠️' }}
-        /> */}
+        {search ? (
+          isLoading ? (
+            <Searching />
+          ) : cards.length > 0 ? (
+            cards.map((card: any) => (
+              <CardBox
+                key={card._id}
+                colored
+                front={card.front}
+                back={card.back}
+                collection={{ name: 'Collection Name', icon: '🏴‍☠️' }}
+              />
+            ))
+          ) : (
+            <NoResults />
+          )
+        ) : (
+          ''
+        )}
       </div>
     </TabsContent>
   );

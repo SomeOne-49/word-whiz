@@ -9,19 +9,41 @@ import { connectToDatabase } from '../mongodb';
 export const getCollections = async (
   userId: string,
   path?: string,
-  searchQuery?: string
+  searchQuery?: string,
+  filter?: string
 ) => {
   try {
     await connectToDatabase();
 
     const query: FilterQuery<typeof Collection> = { userId };
 
-    if (searchQuery && searchQuery.trim()) {
-      query.$or = [{ name: { $regex: new RegExp(searchQuery.trim(), 'i') } }];
+    if (searchQuery) {
+      query.$or = [{ name: { $regex: `^${searchQuery}`, $options: 'i' } }];
+    }
+    
+    let sortOptions = {};
+
+    switch (filter) {
+      case 'newest':
+        sortOptions = { createdAt: -1 };
+        break;
+      case 'oldest':
+        sortOptions = { createdAt: 1 };
+        break;
+      case 'items':
+        sortOptions = { items: -1 };
+        break;
+      case 'name':
+        sortOptions = { name: -1 };
+        break;
+      default:
+        sortOptions = {};
     }
 
-    const collections = await Collection.find(query);
+    const collections = await Collection.find(query).sort(sortOptions);
+
     revalidatePath(path || '/');
+
     return JSON.stringify(collections);
   } catch (error) {
     console.error('Error fetching collections:', error);

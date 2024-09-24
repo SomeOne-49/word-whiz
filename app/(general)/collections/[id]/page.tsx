@@ -1,10 +1,10 @@
 import Head from '@/components/card-page/Head';
 import NoCards from '@/components/card-page/no-cards';
 import WordCard from '@/components/card-page/word-card';
-import { getCards } from '@/lib/actions/card.action';
+import { getCollectionCards } from '@/lib/actions/card.action';
 
 const CardDetails = async ({ params }: { params: { id: string } }) => {
-  const cards  = await getCards(params.id);
+  const cards  = await getCollectionCards(params.id);
   
   if (cards.length <= 0) return <NoCards/>  
 

@@ -1,3 +1,4 @@
+'use client';
 import Image from 'next/image';
 import React from 'react';
 import { Button } from '../ui/button';
@@ -19,7 +20,7 @@ const TabsSheet = ({ triggerIcon, title, children, contentClasses }: Props) => {
   return (
     <Sheet key="bottom">
       <SheetTrigger asChild>
-        <Button variant={'ghost'} id='add_sheet'>
+        <Button variant={'ghost'} id="add_sheet">
           <Image
             src={`/assets/icons/${triggerIcon}.svg`}
             width={37}
@@ -38,7 +39,7 @@ const TabsSheet = ({ triggerIcon, title, children, contentClasses }: Props) => {
           defaultValue="collections"
           className="flex flex-col overflow-hidden"
         >
-          <TabsList className='mb-3'>
+          <TabsList className="mb-3">
             <TabsTrigger value="collections">Collections</TabsTrigger>
             <TabsTrigger value="cards">Cards</TabsTrigger>
           </TabsList>

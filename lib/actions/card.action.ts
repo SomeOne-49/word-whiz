@@ -13,11 +13,13 @@ export const createCard = async (
     img?: string;
     color?: string;
     collectionId: string;
+    userId: string
   },
   path: string
 ) => {
-  const { front, back, note, img, color, collectionId } = data;
+  const { front, back, note, img, color, collectionId, userId } = data;
   try {
+    console.log(userId);
     await connectToDatabase();
 
     const newCard = await Card.create({
@@ -27,7 +29,10 @@ export const createCard = async (
       img,
       color,
       collectionId,
+      userId
     });
+
+    
 
     await Collection.updateOne(
       { _id: collectionId },
@@ -39,7 +44,7 @@ export const createCard = async (
   }
 };
 
-export const getCards = async (collectionId: string) => {
+export const getCollectionCards = async (collectionId: string) => {
   try {
     await connectToDatabase();
 
@@ -52,6 +57,32 @@ export const getCards = async (collectionId: string) => {
   } catch (e) {
     console.error('Error fetching cards:', e);
     throw e;
+  }
+};
+
+export const getCards = async (userId: string, searchQuery: string) => {
+  try {
+    await connectToDatabase();
+    let query = {};
+
+    if (searchQuery && searchQuery.trim()) {
+      query = {
+        $and: [
+          { userId },
+          {
+            $or: [
+              { front: { $regex: `^${searchQuery.trim()}`, $options: 'i' } },
+              { back: { $regex: `^${searchQuery.trim()}`, $options: 'i' } },
+            ],
+          },
+        ],
+      };
+    }
+
+    const cards = await Card.find(query);
+    return JSON.stringify(cards);
+  } catch (e) {
+    console.log(e);
   }
 };
 
