@@ -27,15 +27,13 @@ const CardTab = () => {
         const cards = await getCards(userId, search);
         setCards(JSON.parse(cards || '[]'));
       } catch (e) {
-        console.error('Error fetching collections:', e);
+        console.error('Error fetc hing collections:', e);
       } finally {
         setIsLoading(false);
       }
     };
     fetchCards();
   }, [search, searchParams, userId]);
-
-  console.log(cards);
 
   return (
     <TabsContent value="cards">

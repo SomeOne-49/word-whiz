@@ -13,7 +13,7 @@ export const createCard = async (
     img?: string;
     color?: string;
     collectionId: string;
-    userId: string
+    userId: string;
   },
   path: string
 ) => {
@@ -29,10 +29,8 @@ export const createCard = async (
       img,
       color,
       collectionId,
-      userId
+      userId,
     });
-
-    
 
     await Collection.updateOne(
       { _id: collectionId },
