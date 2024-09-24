@@ -6,7 +6,11 @@ import { FilterQuery } from 'mongoose';
 import { revalidatePath } from 'next/cache';
 import { connectToDatabase } from '../mongodb';
 
-export const getCollections = async (userId: string, searchQuery?: string) => {
+export const getCollections = async (
+  userId: string,
+  path?: string,
+  searchQuery?: string
+) => {
   try {
     await connectToDatabase();
 
@@ -17,8 +21,8 @@ export const getCollections = async (userId: string, searchQuery?: string) => {
     }
 
     const collections = await Collection.find(query);
-
-    return JSON.stringify(collections) ;
+    revalidatePath(path || '/');
+    return JSON.stringify(collections);
   } catch (error) {
     console.error('Error fetching collections:', error);
     throw new Error('Failed to fetch collections');
@@ -40,7 +44,6 @@ export const getCollectionById = async (
     throw new Error('Failed to fetch collection');
   }
 };
-
 
 export const createCollection = async (
   data: {

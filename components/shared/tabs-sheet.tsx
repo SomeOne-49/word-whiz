@@ -19,7 +19,7 @@ const TabsSheet = ({ triggerIcon, title, children, contentClasses }: Props) => {
   return (
     <Sheet key="bottom">
       <SheetTrigger asChild>
-        <Button variant={'ghost'}>
+        <Button variant={'ghost'} id='add_sheet'>
           <Image
             src={`/assets/icons/${triggerIcon}.svg`}
             width={37}

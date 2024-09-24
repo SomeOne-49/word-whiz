@@ -15,11 +15,11 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { SheetFooter } from '@/components/ui/sheet';
+import { SheetClose, SheetFooter } from '@/components/ui/sheet';
 import { createCard, updateCard } from '@/lib/actions/card.action';
 import { cardSchema } from '@/lib/validation';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 // import UploadImg from './upload-img';
@@ -36,7 +36,6 @@ type Props = {
   isEdit?: boolean;
 };
 const CardForm = ({ collections, isEdit = false, card }: Props) => {
-  const route = useRouter()
   const path = usePathname();
   const form = useForm<z.infer<typeof cardSchema>>({
     resolver: zodResolver(cardSchema),
@@ -58,7 +57,7 @@ const CardForm = ({ collections, isEdit = false, card }: Props) => {
           { front, back, note, color, collection: collectionId },
           path
         );
-        route.push('/')
+        document.getElementById('close_dialog')?.click();
       } else {
         await createCard(
           {
@@ -71,6 +70,7 @@ const CardForm = ({ collections, isEdit = false, card }: Props) => {
           },
           path
         );
+        document.getElementById('close_sheet')?.click();
         form.reset();
       }
     } catch (e) {
@@ -161,7 +161,9 @@ const CardForm = ({ collections, isEdit = false, card }: Props) => {
               <div className="flex grow items-center justify-between gap-2">
                 <DeleteCard id={card?.cardId || ''} />
                 <div className="flex items-center gap-2">
-                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogCancel id="close_dialog">
+                    Cancel
+                  </AlertDialogCancel>
                   <Button
                     type="submit"
                     className="grow"
@@ -173,13 +175,19 @@ const CardForm = ({ collections, isEdit = false, card }: Props) => {
               </div>
             </AlertDialogFooter>
           ) : (
-            <Button
-              type="submit"
-              className="grow"
-              disabled={form.formState.isSubmitting}
-            >
-              {form.formState.isSubmitting ? 'Creating' : 'Create Card'}
-            </Button>
+            <>
+              <SheetClose
+                id="close_sheet"
+                className='hidden'
+              />
+              <Button
+                type="submit"
+                className="!m-0 grow"
+                disabled={form.formState.isSubmitting}
+              >
+                {form.formState.isSubmitting ? 'Creating' : 'Create Card'}
+              </Button>
+            </>
           )}
         </SheetFooter>
       </form>

@@ -1,6 +1,7 @@
 'use client';
 import {
   AlertDialog,
+  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
@@ -24,7 +25,7 @@ const DeleteCard = ({ id }: { id: string }) => {
         title: 'Card Deleted',
         variant: 'success',
       });
-      
+      document.getElementById('close_dialog')?.click();
     } catch (e) {
       toast({
         title: 'Error occurred',
@@ -36,7 +37,7 @@ const DeleteCard = ({ id }: { id: string }) => {
   return (
     <AlertDialog>
       <AlertDialogTrigger>
-        <Button variant={'destructive'}>
+        <Button variant={'destructive'} type="button">
           <Image
             src="/assets/icons/trash-white.svg"
             width={19}
@@ -55,12 +56,12 @@ const DeleteCard = ({ id }: { id: string }) => {
         </AlertDialogHeader>
         <AlertDialogFooter className="justify-center">
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogCancel
+          <AlertDialogAction
             className="bg-red-500 text-white hover:bg-red-600 hover:text-white"
             onClick={onDelete}
           >
             Delete
-          </AlertDialogCancel>
+          </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

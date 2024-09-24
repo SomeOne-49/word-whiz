@@ -12,7 +12,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { SheetFooter } from '@/components/ui/sheet';
+import { SheetClose, SheetFooter } from '@/components/ui/sheet';
 import {
   createCollection,
   updateCollection,
@@ -63,6 +63,7 @@ const CollectionForm = ({
           variant: 'success',
         });
         form.reset();
+        document.getElementById('close_sheet')?.click();
       } else {
         const { name, color, icon } = values;
         await updateCollection(
@@ -74,6 +75,7 @@ const CollectionForm = ({
           title: 'Collection has been added.',
           variant: 'success',
         });
+        document.getElementById('close_dialog')?.click();
       }
     } catch (e) {
       toast({
@@ -143,7 +145,7 @@ const CollectionForm = ({
           {isEdit ? (
             <AlertDialogFooter>
               <PopoverClose>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogCancel id="close_dialog">Cancel</AlertDialogCancel>
               </PopoverClose>
               {/* <AlertDialogAction
                 type="submit"
@@ -160,13 +162,16 @@ const CollectionForm = ({
               </Button>
             </AlertDialogFooter>
           ) : (
-            <Button
-              type="submit"
-              className="grow"
-              disabled={form.formState.isSubmitting}
-            >
-              {form.formState.isSubmitting ? 'Creating' : 'Create Collection'}
-            </Button>
+            <>
+              <SheetClose id="close_sheet" className='hidden' />
+              <Button
+                type="submit"
+                className="!m-0 grow"
+                disabled={form.formState.isSubmitting}
+              >
+                {form.formState.isSubmitting ? 'Creating' : 'Create Collection'}
+              </Button>
+            </>
           )}
         </SheetFooter>
       </form>

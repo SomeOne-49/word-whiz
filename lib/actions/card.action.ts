@@ -104,15 +104,18 @@ export const updateCard = async (
       throw new Error('Card not found');
     }
 
-    const oldCollection = await Collection.updateOne({ cards: id }, { $pull: { cards: id } });
+    const oldCollection = await Collection.updateOne(
+      { cards: id },
+      { $pull: { cards: id } }
+    );
 
     const newCollection = await Collection.updateOne(
       { _id: collection },
       { $addToSet: { cards: id } }
     );
 
-
-    return {oldCollection, newCollection}
+    revalidatePath(path);
+    return { oldCollection, newCollection };
   } catch (e) {
     console.error('Error updating card:', e);
   }

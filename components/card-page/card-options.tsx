@@ -42,10 +42,19 @@ const CardOptions = ({
   return (
     <div
       ref={optionRef}
-      className={`absolute bottom-3 right-3 flex flex-col-reverse items-center gap-1 overflow-hidden rounded-2xl bg-white p-1.5 shadow-md transition-all duration-500 ${!isFront ? 'opacity-0' : 'opacity-100'} ${isOpen ? 'max-h-80' : 'max-h-14'} transition-all duration-500`}
+      className={`absolute bottom-3 right-3 flex flex-row-reverse items-center gap-1 overflow-hidden rounded-2xl bg-white p-1.5 shadow-md transition-all duration-500 ${!isFront ? 'opacity-0' : 'opacity-100'} ${isOpen ? 'max-w-80' : 'max-w-14'} transition-all duration-500`}
     >
       {isOpen && <OptBtn icon="close" />}
       {!isOpen && <OptBtn icon="dots" onClick={() => setIsOpen(!isOpen)} />}
+      <EditCard
+        front={front}
+        back={back}
+        color={color}
+        cardId={cardId}
+        note={note}
+        collection={collection}
+        isOpen={isOpen}
+      />
       <OptBtn icon="volume" onClick={() => speakText(front)} />
       {!showImg ? (
         <OptBtn icon="gallery" onClick={() => toggleImg(true)} />
@@ -57,7 +66,6 @@ const CardOptions = ({
       ) : (
         <OptBtn icon="bookmark-save" onClick={toggleMark} />
       )}
-      <EditCard front={front} back={back} color={color} cardId={cardId} note={note} collection={collection} />
       {/* <OptBtn icon="trash" /> */}
       <CopyText ele="h4" />
     </div>
