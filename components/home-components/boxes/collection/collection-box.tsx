@@ -26,10 +26,7 @@ const CollectionBox = ({
   const disabled = items < 1;
   return (
     <Box colored={colored} disabled={disabled}>
-      <Link
-        href={disabled ? '' : link}
-        className="flex grow items-center gap-4"
-      >
+      <Link href={link} className="flex grow items-center gap-4">
         <BoxIcon size="size-12 text-3xl" bg={color} icon={icon} />
         <div className="flex grow flex-col gap-0.5">
           <h5 className="text-lg font-semibold text-primary">{name}</h5>

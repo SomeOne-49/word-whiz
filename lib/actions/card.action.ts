@@ -1,4 +1,5 @@
 'use server';
+import { FilterQuery } from 'mongoose';
 
 import Card from '@/database/card.model';
 import Collection from '@/database/collections.model';
@@ -58,29 +59,49 @@ export const getCollectionCards = async (collectionId: string) => {
   }
 };
 
-export const getCards = async (userId: string, searchQuery: string) => {
+// export const getCards = async (userId: string, searchQuery: string) => {
+//   try {
+//     await connectToDatabase();
+//     const query: FilterQuery<typeof Card> = { userId };
+
+//     if (searchQuery) {
+//       query.$or = [
+//         { front: { $regex: `^${searchQuery}`, $options: 'i' } },
+//         { back: { $regex: `^${searchQuery}`, $options: 'i' } },
+//       ];
+//     }
+//     const cards = await Card.find(query).populate({
+//       path: 'collectionId',
+//       model: Collection,
+//     });
+//     return JSON.stringify(cards);
+//   } catch (e) {
+//     console.log(e);
+//   }
+// };
+
+export const getCards = async (userId: string, searchQuery?: string) => {
   try {
     await connectToDatabase();
-    let query = {};
 
-    if (searchQuery && searchQuery.trim()) {
-      query = {
-        $and: [
-          { userId },
-          {
-            $or: [
-              { front: { $regex: `^${searchQuery.trim()}`, $options: 'i' } },
-              { back: { $regex: `^${searchQuery.trim()}`, $options: 'i' } },
-            ],
-          },
-        ],
-      };
+    const query: FilterQuery<typeof Card> = { userId };
+
+    if (searchQuery) {
+      query.$or = [
+        { front: { $regex: `^${searchQuery}`, $options: 'i' } },
+        { back: { $regex: `^${searchQuery}`, $options: 'i' } },
+      ];
     }
 
-    const cards = await Card.find(query);
+    const cards = await Card.find(query).populate({
+      path: 'collectionId',
+      model: Collection,
+    });
+
     return JSON.stringify(cards);
-  } catch (e) {
-    console.log(e);
+  } catch (error) {
+    console.error('Error fetching collections:', error);
+    throw new Error('Failed to fetch collections');
   }
 };
 

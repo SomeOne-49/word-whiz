@@ -14,7 +14,7 @@ const CardTab = () => {
   const search = searchParams.get('s');
   const [cards, setCards] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  
+
   useEffect(() => {
     if (!userId || !search) {
       setCards([]);
@@ -25,7 +25,8 @@ const CardTab = () => {
       setIsLoading(true);
       try {
         const cards = await getCards(userId, search);
-        setCards(JSON.parse(cards || '[]'));
+        setCards(JSON.parse(cards));
+        setIsLoading(false);
       } catch (e) {
         console.error('Error fetc hing collections:', e);
       } finally {
@@ -35,6 +36,8 @@ const CardTab = () => {
     fetchCards();
   }, [search, searchParams, userId]);
 
+  console.log(cards);
+
   return (
     <TabsContent value="cards">
       <div className="mb-2">
@@ -42,7 +45,9 @@ const CardTab = () => {
       </div>
       <div className="mb-2 flex items-center justify-between gap-3 border-t border-primary-dark pt-2">
         <h6 className="text-xl font-semibold text-primary">Cards:</h6>
-        <h6 className="font-semibold text-primary">{cards.length} Resultes found</h6>
+        <h6 className="font-semibold text-primary">
+          {cards.length} Resultes found
+        </h6>
       </div>
       <div className="flex flex-col gap-3 p-1.5">
         {search ? (
@@ -55,7 +60,14 @@ const CardTab = () => {
                 colored
                 front={card.front}
                 back={card.back}
-                collection={{ name: 'Collection Name', icon: '🏴‍☠️' }}
+                bg={card.color}
+                idx={card.collectionId.cards.indexOf(card._id)}
+                collection={{
+                  id: card.collectionId._id,
+                  name: card.collectionId.name,
+                  icon: card.collectionId.icon,
+                  iconBg: card.collectionId.color,
+                }}
               />
             ))
           ) : (

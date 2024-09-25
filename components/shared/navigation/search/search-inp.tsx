@@ -1,23 +1,23 @@
 'use client';
 import { Input } from '@/components/ui/input';
 import { formUrlQuery, removeKeyesFromQuery } from '@/lib/utils';
+import useStore from '@/store/useStore';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 const SearchInp = ({ placeholder }: { placeholder: string }) => {
   const route = useRouter();
   const path = usePathname();
   const searchParams = useSearchParams();
-  const query = searchParams.get('s');
-  const [input, setInput] = useState(query || '');
+  const { searchIpn, updateSearch } = useStore();
 
   useEffect(() => {
     const time = setTimeout(() => {
-      if (input) {
+      if (searchIpn) {
         const newUrl = formUrlQuery({
           params: searchParams.toString(),
           key: 's',
-          value: input,
+          value: searchIpn,
         });
         route.push(newUrl, { scroll: false });
       } else {
@@ -29,7 +29,7 @@ const SearchInp = ({ placeholder }: { placeholder: string }) => {
       }
     }, 300);
     return () => clearTimeout(time);
-  }, [input, path, route, searchParams]);
+  }, [searchIpn, path, route, searchParams]);
 
   return (
     <div className="mb-2">
@@ -38,9 +38,9 @@ const SearchInp = ({ placeholder }: { placeholder: string }) => {
         icon="search"
         type="text"
         placeholder={placeholder}
-        value={input}
+        value={searchIpn}
         onChange={(e) => {
-          setInput(e.target.value.trimStart());
+          updateSearch(e.target.value.trimStart());
         }}
       />
     </div>

@@ -56,8 +56,8 @@ const DeleteCollection = ({ id, name }: { id: string; name: string }) => {
           <AlertDialogDescription>
             <p className="mb-2">
               To delete the collection{' '}
-              <strong className="text-primary">{name}</strong>, type the name to
-              confirm.
+              <strong className="select-all text-primary">{name}</strong>, type
+              the name to confirm.
             </p>
             <Input
               placeholder="Enter collection name..."

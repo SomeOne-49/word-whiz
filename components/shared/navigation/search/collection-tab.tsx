@@ -42,7 +42,9 @@ const CollectionTab = () => {
       <SearchInp placeholder="Search Collections..." />
       <div className="mb-2 flex items-center justify-between gap-3 border-t border-primary-dark pt-2">
         <h6 className="text-xl font-semibold text-primary">Collections:</h6>
-        <h6 className="font-semibold text-primary">{collections.length} Resultes found</h6>
+        <h6 className="font-semibold text-primary">
+          {collections.length} Resultes found
+        </h6>
       </div>
       <div className="flex grow flex-col gap-3 px-1.5">
         {search ? (
