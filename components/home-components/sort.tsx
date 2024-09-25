@@ -1,5 +1,8 @@
+'use client';
 import { CardsFilter } from '@/constants';
+import { formUrlQuery } from '@/lib/utils';
 import Image from 'next/image';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Button } from '../ui/button';
 import {
   DropdownMenu,
@@ -8,6 +11,16 @@ import {
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu';
 const SortBtn = () => {
+  const searchParams = useSearchParams();
+  const route = useRouter();
+  const handleChange = (val: string) => {
+    const newUrl = formUrlQuery({
+      params: searchParams.toString(),
+      key: 'f',
+      value: val,
+    });
+    route.push(newUrl, { scroll: false });
+  };
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -23,7 +36,12 @@ const SortBtn = () => {
       <DropdownMenuContent align="end" arrowPadding={30}>
         {CardsFilter.map((filter) => {
           return (
-            <DropdownMenuItem key={filter.name}>{filter.name}</DropdownMenuItem>
+            <DropdownMenuItem
+              key={filter.value}
+              onClick={() => handleChange(filter.value)}
+            >
+              {filter.name}
+            </DropdownMenuItem>
           );
         })}
       </DropdownMenuContent>

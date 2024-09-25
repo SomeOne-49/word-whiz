@@ -20,7 +20,7 @@ export const getCollections = async (
     if (searchQuery) {
       query.$or = [{ name: { $regex: `^${searchQuery}`, $options: 'i' } }];
     }
-    
+
     let sortOptions = {};
 
     switch (filter) {
@@ -34,7 +34,7 @@ export const getCollections = async (
         sortOptions = { items: -1 };
         break;
       case 'name':
-        sortOptions = { name: -1 };
+        sortOptions = { name: 1 };
         break;
       default:
         sortOptions = {};

@@ -1,11 +1,21 @@
 import CollectionBox from '@/components/home-components/boxes/collection/collection-box';
-import SortBtn from '@/components/home-components/sort-btn';
+import SortBtn from '@/components/home-components/sort';
 import { getCollections } from '@/lib/actions/collections.action';
 import { auth } from '@clerk/nextjs/server';
-const Home = async () => {
+export interface SearchParamsProps {
+  searchParams: { [key: string]: string | undefined };
+}
+const Home = async ({ searchParams }: SearchParamsProps) => {
   const { userId } = auth();
   if (!userId) return;
-  const collections = await getCollections(userId);
+  console.log(searchParams.f);
+
+  const collections = await getCollections(
+    userId,
+    '/',
+    undefined,
+    searchParams.f
+  );
 
   return (
     <div className="flex max-h-full flex-col gap-3">
