@@ -30,7 +30,7 @@ const WordCard = ({ cards }: Props) => {
         />
         <Back isFront={isFront} back={card.back} note={card.note} />
       </div>
-      <div className="fixed left-1/2 top-0 -z-30 h-[75vh] max-h-[732px] w-screen max-w-sm -translate-x-1/2 rounded-b-[75px] bg-gray-200/75">
+      <div className="fixed left-1/2 top-0 -z-30 h-[75vh] max-h-[732px] w-screen max-w-sm -translate-x-1/2 rounded-b-[75px] bg-gray-300/50">
         <CardAction
           cardLength={JSON.parse(cards).length}
           current={currentCard}

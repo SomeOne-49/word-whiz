@@ -9,6 +9,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '../../ui/sheet';
+import ColorFilter from './color-filter';
 import FilterBy from './filter-by';
 const Filters = () => {
   return (
@@ -36,7 +37,7 @@ const Filters = () => {
           </div>
           <div>
             <div className="flex flex-col gap-2">
-              {/* <ColorPicker title="colors" type='multiple' opened /> */}
+              <ColorFilter />
             </div>
           </div>
         </div>

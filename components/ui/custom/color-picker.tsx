@@ -27,7 +27,6 @@ const ColorPicker = ({
       >
         <div className="grid w-full grid-cols-6 gap-3">
           {Object.keys(colors).map((key) => {
-            const color = colors[key as keyof typeof colors];
             return (
               <ToggleGroupItem
                 key={key}

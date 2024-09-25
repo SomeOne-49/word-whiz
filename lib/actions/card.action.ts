@@ -1,6 +1,7 @@
 'use server';
 import { FilterQuery } from 'mongoose';
 
+import { colors } from '@/constants';
 import Card from '@/database/card.model';
 import Collection from '@/database/collections.model';
 import { revalidatePath } from 'next/cache';
@@ -45,7 +46,8 @@ export const createCard = async (
 
 export const getCollectionCards = async (
   collectionId: string,
-  filter?: string
+  filter?: string,
+  colorsFilter?: string[]
 ) => {
   try {
     await connectToDatabase();
@@ -54,6 +56,15 @@ export const getCollectionCards = async (
     if (filter === 'bookmarked') {
       query.$and = [{ isMarked: true }];
     }
+    if (colorsFilter && colorsFilter.length > 0) {
+      query.$and = query.$and || [];
+
+      for (const color of colorsFilter) {
+        query.$and.push({ color: colors[color].bg });
+      }
+    }
+
+    console.log(query);
 
     let sortOption: any = {};
     let useShuffle = false;

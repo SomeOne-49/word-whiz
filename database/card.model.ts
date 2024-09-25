@@ -2,7 +2,7 @@ import { Document, model, models, Schema } from 'mongoose';
 export interface ICard extends Document {
   front: string;
   back: string;
-  note: string;
+  note?: string;
   isMarked: boolean;
   img: string;
   color: string;
@@ -14,7 +14,7 @@ export interface ICard extends Document {
 const CardSchema = new Schema<ICard>({
   front: { type: String, required: true },
   back: { type: String, required: true },
-  note: { type: String },
+  note: { type: String, required: false },
   isMarked: { type: Boolean },
   img: { type: String },
   color: { type: String, default: '#BEEAFF' },
