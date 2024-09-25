@@ -8,6 +8,7 @@ import {
   CommandItem,
   CommandList,
 } from '@/components/ui/command';
+import { colors } from '@/constants';
 
 const CollectionPicker = ({
   setFormVal,
@@ -44,14 +45,14 @@ const CollectionPicker = ({
                   }}
                 >
                   <CommandItem
-                    className={`${value === collection._id ? '!bg-primary !text-primary-light' : ''}`}
+                    className={`${value === collection._id ? '!bg-primary !text-primary-dark' : 'bg-primary-dark/70'} mb-1`}
                   >
                     <div className="flex w-full items-center justify-between gap-2">
                       <div className="flex items-center gap-3">
                         <BoxIcon
                           size="size-6 text-sm"
                           icon={collection.icon}
-                          bg={collection.color}
+                          bg={colors[collection.color]?.bg}
                         />
                         <h6 className="font-semibold">{collection.name}</h6>
                       </div>

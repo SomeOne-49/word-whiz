@@ -1,6 +1,7 @@
 'use server';
 
 // import Card from '@/database/card.model';
+import Card from '@/database/card.model';
 import Collection from '@/database/collections.model';
 import { FilterQuery } from 'mongoose';
 import { revalidatePath } from 'next/cache';
@@ -102,7 +103,7 @@ export const deleteCollection = async (id: string, path: string) => {
       throw new Error('Collection not found');
     }
 
-    // await Card.deleteMany({ cardCollection: id });
+    await Card.deleteMany({ collectionId: id });
 
     revalidatePath(path);
   } catch (e) {

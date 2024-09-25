@@ -1,5 +1,4 @@
 'use client';
-import { ICard } from '@/database/card.model';
 import { toggleMarkedCard } from '@/lib/actions/card.action';
 import { useClickOutside } from '@/lib/hooks/useClickOutside';
 import { speakText } from '@/lib/utils';
@@ -12,6 +11,7 @@ type Props = {
   isFront: boolean;
   showImg: boolean;
   toggleImg: (value: boolean) => void;
+  isMarked: boolean;
   card: {
     front: string;
     back: string;
@@ -25,18 +25,19 @@ const CardOptions = ({
   isFront,
   showImg,
   toggleImg,
+  isMarked,
   card: { front, back, color, cardId, note, collection },
 }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const optionRef = useClickOutside(() => setIsOpen(false));
-  const [updatedCard, setUpdatedCard] = useState<ICard | null>(null);
+  const [isSaved, setisSaved] = useState(isMarked);
   const path = usePathname();
 
   const toggleMark = async () => {
     const card = await toggleMarkedCard(cardId, path);
     if (!card) return false;
     const parsedCard = JSON.parse(card);
-    setUpdatedCard(parsedCard);
+    setisSaved(parsedCard.isMarked);
   };
 
   return (
@@ -61,7 +62,7 @@ const CardOptions = ({
       ) : (
         <OptBtn icon="word" onClick={() => toggleImg(false)} />
       )} */}
-      {updatedCard?.isMarked ? (
+      {isSaved ? (
         <OptBtn icon="bookmark-delete" onClick={toggleMark} />
       ) : (
         <OptBtn icon="bookmark-save" onClick={toggleMark} />

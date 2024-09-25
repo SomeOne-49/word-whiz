@@ -11,6 +11,7 @@ type Props = {
   back: string;
   bg: string;
   idx: number;
+  color: string;
   collection: {
     id: string;
     name: string;
@@ -25,6 +26,7 @@ const CardBox = ({
   front,
   back,
   bg,
+  color,
   collection: { id, name, icon, iconBg },
 }: Props) => {
   const { updateCurrent, updateSearch } = useStore();
@@ -42,7 +44,10 @@ const CardBox = ({
         onClick={changeDefaulteCard}
       >
         <div className="mb-1 flex items-center gap-2">
-          <h5 className="text-xl font-semibold text-primary">
+          <h5
+            className="text-xl font-semibold"
+            style={{ color: color || '#0279B2' }}
+          >
             {front} / {back}
           </h5>
         </div>

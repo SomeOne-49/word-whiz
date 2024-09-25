@@ -26,6 +26,7 @@ const WordCard = ({ cards }: Props) => {
           collection={card.collectionId}
           color={card.color}
           note={card.note}
+          isMarked={card.isMarked}
         />
         <Back isFront={isFront} back={card.back} note={card.note} />
       </div>

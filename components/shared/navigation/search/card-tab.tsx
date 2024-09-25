@@ -1,6 +1,7 @@
 'use client';
 import CardBox from '@/components/home-components/boxes/card-box';
 import { TabsContent } from '@/components/ui/tabs';
+import { colors } from '@/constants';
 import { getCards } from '@/lib/actions/card.action';
 import { useAuth } from '@clerk/nextjs';
 import { useSearchParams } from 'next/navigation';
@@ -36,8 +37,6 @@ const CardTab = () => {
     fetchCards();
   }, [search, searchParams, userId]);
 
-  console.log(cards);
-
   return (
     <TabsContent value="cards">
       <div className="mb-2">
@@ -60,13 +59,14 @@ const CardTab = () => {
                 colored
                 front={card.front}
                 back={card.back}
-                bg={card.color}
+                bg={colors[card.color]?.bg}
                 idx={card.collectionId.cards.indexOf(card._id)}
+                color={colors[card.color]?.txt}
                 collection={{
                   id: card.collectionId._id,
                   name: card.collectionId.name,
                   icon: card.collectionId.icon,
-                  iconBg: card.collectionId.color,
+                  iconBg: colors[card.collectionId.color]?.bg,
                 }}
               />
             ))

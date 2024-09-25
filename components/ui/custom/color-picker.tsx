@@ -6,14 +6,12 @@ const ColorPicker = ({
   title,
   type,
   opened,
-  // setVal,
   setFormVal,
   defaultValue,
 }: {
   title: string;
   type?: 'multiple' | 'single';
   opened?: boolean;
-  // setVal: (val: any) => void;
   setFormVal: (val: any) => void;
   defaultValue?: any;
 }) => {
@@ -27,15 +25,18 @@ const ColorPicker = ({
           setFormVal(val);
         }}
       >
-        <div className="grid w-full grid-cols-5 gap-3">
-          {colors.map((colorVal) => (
-            <ToggleGroupItem
-              key={colorVal}
-              className="h-9 rounded-xl"
-              value={colorVal}
-              style={{ backgroundColor: colorVal }}
-            />
-          ))}
+        <div className="grid w-full grid-cols-6 gap-3">
+          {Object.keys(colors).map((key) => {
+            const color = colors[key as keyof typeof colors];
+            return (
+              <ToggleGroupItem
+                key={key}
+                className="h-9 rounded-xl"
+                value={key}
+                style={{ backgroundColor: colors[key]?.bg }}
+              />
+            );
+          })}
         </div>
       </ToggleGroup>
     </FormAccordion>

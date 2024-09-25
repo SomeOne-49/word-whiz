@@ -20,7 +20,6 @@ export const createCard = async (
 ) => {
   const { front, back, note, img, color, collectionId, userId } = data;
   try {
-    console.log(userId);
     await connectToDatabase();
 
     const newCard = await Card.create({
@@ -28,6 +27,7 @@ export const createCard = async (
       back,
       note,
       img,
+      isMarked: false,
       color,
       collectionId,
       userId,
@@ -43,11 +43,45 @@ export const createCard = async (
   }
 };
 
-export const getCollectionCards = async (collectionId: string) => {
+export const getCollectionCards = async (
+  collectionId: string,
+  filter?: string
+) => {
   try {
     await connectToDatabase();
+    const query: FilterQuery<typeof Card> = { collectionId };
 
-    const cards = await Card.find({ collectionId });
+    if (filter === 'bookmarked') {
+      query.$and = [{ isMarked: true }];
+    }
+
+    let sortOption: any = {};
+    let useShuffle = false;
+
+    switch (filter) {
+      case 'oldest':
+        sortOption = { createdAt: -1 };
+        break;
+      case 'newest':
+        sortOption = { createdAt: 1 };
+        break;
+      case 'shuffle':
+        useShuffle = true;
+        break;
+    }
+
+    let cards;
+    if (useShuffle) {
+      cards = await Card.aggregate([
+        { $match: { userId: 'user_2mYe8qaW67gqLtE4w2Plojz7VMr' } },
+        // { $match: { collectionId: '66f40c1bdfc3abebf2b91176' } },
+        { $sample: { size: 50 } },
+      ]);
+      console.log(cards[0]?.collectionId);
+    } else {
+      cards = await Card.find(query).sort(sortOption);
+    }
+
     if (!cards || cards.length === 0) {
       return [];
     }

@@ -14,5 +14,5 @@ export const cardSchema = z.object({
   note: z.string().min(3).max(120).optional(),
   img: z.string().optional(),
   color: z.string().optional(),
-  collectionId: z.string()
+  collectionId: z.string().min(24, 'You must choose one collection.'),
 });
