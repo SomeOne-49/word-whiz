@@ -28,22 +28,22 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body
-          className={`${baloo.className} relative flex h-svh`}
-        >
-          <div className="absolute left-0 top-0 z-10 size-full bg-primary/25 backdrop-blur-[7px]" />
+        <body className={`${baloo.className} relative flex h-svh`}>
+          <div className="absolute left-0 top-0 z-10 size-full bg-primary/25 backdrop-blur-sm" />
           <Image
-            src="/assets/app-bg.png"
+            src="/assets/app-bg-2.png"
             fill
             alt="books"
             className="object-cover"
           />
           <div className="relative z-50 m-auto flex h-full max-w-sm grow flex-col justify-between gap-3 bg-white p-3">
             <Header />
-            <main className="grow overflow-hidden">{children}</main>
-            <Toaster />
+            <main className="grow overflow-hidden rounded-2xl bg-white">
+              {children}
+            </main>
             <Navigation />
           </div>
+          <Toaster />
         </body>
       </html>
     </ClerkProvider>

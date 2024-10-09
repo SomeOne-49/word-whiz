@@ -57,14 +57,13 @@ export const getCollectionCards = async (
       query.$and = [{ isMarked: true }];
     }
     if (colorsFilter && colorsFilter.length > 0) {
-      query.$and = query.$and || [];
+      query.$or = query.$or || [];
 
       for (const color of colorsFilter) {
-        query.$and.push({ color: colors[color].bg });
+        query.$or.push({ color: colors[color].bg });
       }
+      query.$or = [{ color: '##33FF57' }];
     }
-
-    console.log(query);
 
     let sortOption: any = {};
     let useShuffle = false;
@@ -82,13 +81,13 @@ export const getCollectionCards = async (
     }
 
     let cards;
+    const { ObjectId } = require('mongoose').Types;
+
     if (useShuffle) {
       cards = await Card.aggregate([
-        { $match: { userId: 'user_2mYe8qaW67gqLtE4w2Plojz7VMr' } },
-        // { $match: { collectionId: '66f40c1bdfc3abebf2b91176' } },
+        { $match: { collectionId: new ObjectId(collectionId) } },
         { $sample: { size: 50 } },
       ]);
-      console.log(cards[0]?.collectionId);
     } else {
       cards = await Card.find(query).sort(sortOption);
     }
