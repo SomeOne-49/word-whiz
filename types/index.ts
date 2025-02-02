@@ -1,5 +1,8 @@
+// @types/index.ts
 export interface SearchParamsProps {
-  c?: string[] | undefined;
-  f?: string | undefined;
-  searchParams: { [key: string]: string | undefined };
+  searchParams: {
+    f?: string;
+    c?: string[];
+    [key: string]: string | string[] | undefined;
+  };
 }

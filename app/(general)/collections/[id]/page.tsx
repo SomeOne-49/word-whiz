@@ -10,8 +10,7 @@ const CardDetails = async ({
   searchParams,
 }: {
   params: { id: string };
-  searchParams: SearchParamsProps;
-}) => {
+} & SearchParamsProps) => {
   const cards = await getCollectionCards(
     params.id,
     searchParams.f,
